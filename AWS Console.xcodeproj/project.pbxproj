@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,19 @@
 		04F4C455265D3250006A3DDE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04F4C454265D3250006A3DDE /* Preview Assets.xcassets */; };
 		04F4C461265D3250006A3DDE /* AWS_ConsoleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4C460265D3250006A3DDE /* AWS_ConsoleTests.swift */; };
 		04F4C46C265D3250006A3DDE /* AWS_ConsoleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4C46B265D3250006A3DDE /* AWS_ConsoleUITests.swift */; };
+		04F4C47D265D3314006A3DDE /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4C47C265D3314006A3DDE /* Sidebar.swift */; };
+		04F4C47F265D359A006A3DDE /* EC2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4C47E265D359A006A3DDE /* EC2View.swift */; };
+		04F4C481265D35A7006A3DDE /* EBSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4C480265D35A7006A3DDE /* EBSView.swift */; };
+		04F4C483265D35B3006A3DDE /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4C482265D35B3006A3DDE /* SettingsView.swift */; };
+		04F4C486265E2EC8006A3DDE /* SotoS3 in Frameworks */ = {isa = PBXBuildFile; productRef = 04F4C485265E2EC8006A3DDE /* SotoS3 */; };
+		04F4C488265E2EC8006A3DDE /* SotoEBS in Frameworks */ = {isa = PBXBuildFile; productRef = 04F4C487265E2EC8006A3DDE /* SotoEBS */; };
+		04F4C48A265E2EC8006A3DDE /* SotoEC2 in Frameworks */ = {isa = PBXBuildFile; productRef = 04F4C489265E2EC8006A3DDE /* SotoEC2 */; };
+		04F4C48C265E2EC8006A3DDE /* SotoPricing in Frameworks */ = {isa = PBXBuildFile; productRef = 04F4C48B265E2EC8006A3DDE /* SotoPricing */; };
+		04F4C48E265E33F6006A3DDE /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4C48D265E33F6006A3DDE /* UserPreferences.swift */; };
+		04F4C490265E3C0D006A3DDE /* EC2Instances.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4C48F265E3C0D006A3DDE /* EC2Instances.swift */; };
+		04F4C492265E3FFF006A3DDE /* InstanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4C491265E3FFF006A3DDE /* InstanceView.swift */; };
+		04F4C494265E57FF006A3DDE /* ClickToCopy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4C493265E57FF006A3DDE /* ClickToCopy.swift */; };
+		04F4C496265E663C006A3DDE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4C495265E663C006A3DDE /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +59,15 @@
 		04F4C467265D3250006A3DDE /* AWS ConsoleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AWS ConsoleUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		04F4C46B265D3250006A3DDE /* AWS_ConsoleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWS_ConsoleUITests.swift; sourceTree = "<group>"; };
 		04F4C46D265D3250006A3DDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04F4C47C265D3314006A3DDE /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
+		04F4C47E265D359A006A3DDE /* EC2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EC2View.swift; sourceTree = "<group>"; };
+		04F4C480265D35A7006A3DDE /* EBSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EBSView.swift; sourceTree = "<group>"; };
+		04F4C482265D35B3006A3DDE /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		04F4C48D265E33F6006A3DDE /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
+		04F4C48F265E3C0D006A3DDE /* EC2Instances.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EC2Instances.swift; sourceTree = "<group>"; };
+		04F4C491265E3FFF006A3DDE /* InstanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstanceView.swift; sourceTree = "<group>"; };
+		04F4C493265E57FF006A3DDE /* ClickToCopy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickToCopy.swift; sourceTree = "<group>"; };
+		04F4C495265E663C006A3DDE /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +75,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04F4C48C265E2EC8006A3DDE /* SotoPricing in Frameworks */,
+				04F4C48A265E2EC8006A3DDE /* SotoEC2 in Frameworks */,
+				04F4C488265E2EC8006A3DDE /* SotoEBS in Frameworks */,
+				04F4C486265E2EC8006A3DDE /* SotoS3 in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +122,9 @@
 		04F4C44C265D324C006A3DDE /* AWS Console */ = {
 			isa = PBXGroup;
 			children = (
+				04F4C47B265D32D5006A3DDE /* ViewModel */,
+				04F4C47A265D32CE006A3DDE /* Model */,
+				04F4C479265D32B2006A3DDE /* View */,
 				04F4C44D265D324C006A3DDE /* AWS_ConsoleApp.swift */,
 				04F4C44F265D324C006A3DDE /* ContentView.swift */,
 				04F4C451265D3250006A3DDE /* Assets.xcassets */,
@@ -132,6 +161,36 @@
 			path = "AWS ConsoleUITests";
 			sourceTree = "<group>";
 		};
+		04F4C479265D32B2006A3DDE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				04F4C47C265D3314006A3DDE /* Sidebar.swift */,
+				04F4C47E265D359A006A3DDE /* EC2View.swift */,
+				04F4C480265D35A7006A3DDE /* EBSView.swift */,
+				04F4C482265D35B3006A3DDE /* SettingsView.swift */,
+				04F4C491265E3FFF006A3DDE /* InstanceView.swift */,
+				04F4C493265E57FF006A3DDE /* ClickToCopy.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		04F4C47A265D32CE006A3DDE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				04F4C495265E663C006A3DDE /* Constants.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		04F4C47B265D32D5006A3DDE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				04F4C48D265E33F6006A3DDE /* UserPreferences.swift */,
+				04F4C48F265E3C0D006A3DDE /* EC2Instances.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -148,6 +207,12 @@
 			dependencies = (
 			);
 			name = "AWS Console";
+			packageProductDependencies = (
+				04F4C485265E2EC8006A3DDE /* SotoS3 */,
+				04F4C487265E2EC8006A3DDE /* SotoEBS */,
+				04F4C489265E2EC8006A3DDE /* SotoEC2 */,
+				04F4C48B265E2EC8006A3DDE /* SotoPricing */,
+			);
 			productName = "AWS Console";
 			productReference = 04F4C44A265D324C006A3DDE /* AWS Console.app */;
 			productType = "com.apple.product-type.application";
@@ -219,6 +284,9 @@
 				Base,
 			);
 			mainGroup = 04F4C441265D324C006A3DDE;
+			packageReferences = (
+				04F4C484265E2EC8006A3DDE /* XCRemoteSwiftPackageReference "soto" */,
+			);
 			productRefGroup = 04F4C44B265D324C006A3DDE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -261,8 +329,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04F4C494265E57FF006A3DDE /* ClickToCopy.swift in Sources */,
+				04F4C496265E663C006A3DDE /* Constants.swift in Sources */,
 				04F4C450265D324C006A3DDE /* ContentView.swift in Sources */,
+				04F4C48E265E33F6006A3DDE /* UserPreferences.swift in Sources */,
+				04F4C47F265D359A006A3DDE /* EC2View.swift in Sources */,
+				04F4C47D265D3314006A3DDE /* Sidebar.swift in Sources */,
+				04F4C492265E3FFF006A3DDE /* InstanceView.swift in Sources */,
+				04F4C483265D35B3006A3DDE /* SettingsView.swift in Sources */,
 				04F4C44E265D324C006A3DDE /* AWS_ConsoleApp.swift in Sources */,
+				04F4C481265D35A7006A3DDE /* EBSView.swift in Sources */,
+				04F4C490265E3C0D006A3DDE /* EC2Instances.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -577,6 +654,40 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		04F4C484265E2EC8006A3DDE /* XCRemoteSwiftPackageReference "soto" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/soto-project/soto.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.5.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		04F4C485265E2EC8006A3DDE /* SotoS3 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 04F4C484265E2EC8006A3DDE /* XCRemoteSwiftPackageReference "soto" */;
+			productName = SotoS3;
+		};
+		04F4C487265E2EC8006A3DDE /* SotoEBS */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 04F4C484265E2EC8006A3DDE /* XCRemoteSwiftPackageReference "soto" */;
+			productName = SotoEBS;
+		};
+		04F4C489265E2EC8006A3DDE /* SotoEC2 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 04F4C484265E2EC8006A3DDE /* XCRemoteSwiftPackageReference "soto" */;
+			productName = SotoEC2;
+		};
+		04F4C48B265E2EC8006A3DDE /* SotoPricing */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 04F4C484265E2EC8006A3DDE /* XCRemoteSwiftPackageReference "soto" */;
+			productName = SotoPricing;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 04F4C442265D324C006A3DDE /* Project object */;
 }

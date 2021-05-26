@@ -8,9 +8,21 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @StateObject var instances = EC2Instances()
+    @StateObject var userPreferences = UserPreferences()
+    let timer = Timer.publish(every: 300, on: .main, in: .common).autoconnect()
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        NavigationView{
+            Sidebar()
+            Text("No Sidebar Selection")
+            Text("No Message Selection")
+        }
+        .environmentObject(instances)
+        .environmentObject(userPreferences)
+        // Refresh instances automatically every 300 seconds.
+        .onReceive(timer, perform:{time in self.instances.getEC2Instances()})
     }
 }
 
