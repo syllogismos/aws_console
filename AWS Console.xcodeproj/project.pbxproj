@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		049F9415265E79D3003F3235 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04F4C451265D3250006A3DDE /* Assets.xcassets */; };
 		04F4C44E265D324C006A3DDE /* AWS_ConsoleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4C44D265D324C006A3DDE /* AWS_ConsoleApp.swift */; };
 		04F4C450265D324C006A3DDE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4C44F265D324C006A3DDE /* ContentView.swift */; };
-		04F4C452265D3250006A3DDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04F4C451265D3250006A3DDE /* Assets.xcassets */; };
 		04F4C455265D3250006A3DDE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04F4C454265D3250006A3DDE /* Preview Assets.xcassets */; };
 		04F4C461265D3250006A3DDE /* AWS_ConsoleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4C460265D3250006A3DDE /* AWS_ConsoleTests.swift */; };
 		04F4C46C265D3250006A3DDE /* AWS_ConsoleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4C46B265D3250006A3DDE /* AWS_ConsoleUITests.swift */; };
@@ -303,8 +303,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				049F9415265E79D3003F3235 /* Assets.xcassets in Resources */,
 				04F4C455265D3250006A3DDE /* Preview Assets.xcassets in Resources */,
-				04F4C452265D3250006A3DDE /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

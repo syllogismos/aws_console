@@ -24,14 +24,13 @@ struct EC2View: View {
         }
         .navigationTitle("EC2 Instances")
         .toolbar{
-            Button(action: {instances.getEC2Instances()}){
-                Image(systemName: "arrow.clockwise")
-            }
             Picker(selection: $userPreferences.region, label: Text("Region")) {ForEach(regions, id: \.self){region in Text(region)}}
                 .onChange(of: userPreferences.region, perform: {_ in
                     instances.getEC2Instances()
                 })
-            
+            Button(action: {instances.getEC2Instances()}){
+                Image(systemName: "arrow.clockwise")
+            }
         }
     }
 }
@@ -39,5 +38,7 @@ struct EC2View: View {
 struct EC2View_Previews: PreviewProvider {
     static var previews: some View {
         EC2View()
+            .environmentObject(EC2Instances())
+            .environmentObject(UserPreferences())
     }
 }
