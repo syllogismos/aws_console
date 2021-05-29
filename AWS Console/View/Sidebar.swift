@@ -13,44 +13,48 @@ struct Sidebar: View {
     
     var body: some View {
         List{
-            Text("EC2")
-                .font(.caption)
-                .foregroundColor(.secondary)
-            NavigationLink(
-                destination: EC2View(),
-                isActive: $isDefaultItemActive,
-                label: {
-                    Label("Instances", systemImage: "desktopcomputer")
-                })
-            NavigationLink(
-                destination: /*@START_MENU_TOKEN@*/Text("Destination")/*@END_MENU_TOKEN@*/,
-                label: {
-                    Label("EBS", systemImage: "externaldrive")
-                })
-            NavigationLink(
-                destination: /*@START_MENU_TOKEN@*/Text("Destination")/*@END_MENU_TOKEN@*/,
-                label: {
-                    Label("AMIs", systemImage: "photo")
-                })
-            NavigationLink(
-                destination: /*@START_MENU_TOKEN@*/Text("Destination")/*@END_MENU_TOKEN@*/,
-                label: {
-                    Label("Spot Pricing", systemImage: "camera.metering.spot")
-                })
-            Text("S3")
-                .font(.caption)
-                .foregroundColor(.secondary)
-            NavigationLink(
-                destination: BucketsView(),
-                label: {
-                    Label("Buckets", systemImage: "tray")
-            })
+            //            Text("EC2")
+            //                .font(.caption)
+            //                .foregroundColor(.secondary)
+            Section(header:Text("EC2")){
+                NavigationLink(
+                    destination: EC2View(),
+                    isActive: $isDefaultItemActive,
+                    label: {
+                        Label("Instances", systemImage: "desktopcomputer")
+                    })
+                NavigationLink(
+                    destination: /*@START_MENU_TOKEN@*/Text("Destination")/*@END_MENU_TOKEN@*/,
+                    label: {
+                        Label("EBS", systemImage: "externaldrive")
+                    })
+                NavigationLink(
+                    destination: /*@START_MENU_TOKEN@*/Text("Destination")/*@END_MENU_TOKEN@*/,
+                    label: {
+                        Label("AMIs", systemImage: "photo")
+                    })
+                NavigationLink(
+                    destination: /*@START_MENU_TOKEN@*/Text("Destination")/*@END_MENU_TOKEN@*/,
+                    label: {
+                        Label("Spot Pricing", systemImage: "camera.metering.spot")
+                    })
+            }
+            //            Text("S3")
+            //                .font(.caption)
+            //                .foregroundColor(.secondary)
+            Section(header:Text("S3")){
+                NavigationLink(
+                    destination: BucketsView(),
+                    label: {
+                        Label("Buckets", systemImage: "tray")
+                    })
+            }
             Spacer()
-//            NavigationLink(
-//                destination: SettingsView(),
-//                label: {
-//                    Label("Settings", systemImage: "gear")
-//                })
+            //            NavigationLink(
+            //                destination: SettingsView(),
+            //                label: {
+            //                    Label("Settings", systemImage: "gear")
+            //                })
         }
         .listStyle((SidebarListStyle()))
         .toolbar(content: {
