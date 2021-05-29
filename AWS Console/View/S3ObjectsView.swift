@@ -10,6 +10,7 @@ import SotoS3
 
 struct S3ObjectsView: View {
     @EnvironmentObject var s3Buckets: S3Buckets
+    @EnvironmentObject var spotPrice: SpotPrice
     var bucketName: String
     var body: some View {
         HStack{
@@ -33,7 +34,10 @@ struct S3ObjectsView: View {
             } else {
                 Text("Error while querying objects")
             }
-        }.onAppear(perform: {s3Buckets.listObjects(bucketName: bucketName)})
+        }.onAppear(perform: {
+            s3Buckets.listObjects(bucketName: bucketName)
+            spotPrice.getSpotPriceHistory(instanceType: "p3.2xlarge")
+        })
     }
     
 }
