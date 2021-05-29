@@ -23,3 +23,11 @@ struct AWS_ConsoleApp: App {
         }
     }
 }
+
+// Hiding Textfiled focus ring
+extension NSTextField{
+    open override var focusRingType: NSFocusRingType{
+        get{.none}
+        set{}
+    }
+}

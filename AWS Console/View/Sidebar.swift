@@ -10,6 +10,7 @@ import SwiftUI
 struct Sidebar: View {
     
     @State private var isDefaultItemActive = true
+    @EnvironmentObject var instanceTypes: InstanceTypes
     
     var body: some View {
         List{
@@ -34,7 +35,7 @@ struct Sidebar: View {
                         Label("AMIs", systemImage: "photo")
                     })
                 NavigationLink(
-                    destination: /*@START_MENU_TOKEN@*/Text("Destination")/*@END_MENU_TOKEN@*/,
+                    destination: InstanceTypesView(generalPurpose: instanceTypes.instanceTypes.filter({$0.rawValue.starts(with: "a") || $0.rawValue.starts(with: "m") || $0.rawValue.starts(with: "t")}).map({$0.rawValue}).sorted(), computeOptimized: instanceTypes.instanceTypes.filter({$0.rawValue.starts(with: "c")}).map({$0.rawValue}).sorted(), acceleratedCompute: instanceTypes.instanceTypes.filter({$0.rawValue.starts(with: "f") || $0.rawValue.starts(with: "g") || $0.rawValue.starts(with: "i") || $0.rawValue.starts(with: "g")}).map({$0.rawValue}).sorted(), memoryOptimized: instanceTypes.instanceTypes.filter({$0.rawValue.starts(with: "r") || $0.rawValue.starts(with: "x") || $0.rawValue.starts(with: "z")}).map({$0.rawValue}).sorted(), storageOptimized: instanceTypes.instanceTypes.filter({$0.rawValue.starts(with: "d") || $0.rawValue.starts(with: "h") || $0.rawValue.starts(with: "i")}).map({$0.rawValue}).sorted()),
                     label: {
                         Label("Spot Pricing", systemImage: "camera.metering.spot")
                     })
