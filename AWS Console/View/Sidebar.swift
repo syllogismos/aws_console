@@ -41,16 +41,16 @@ struct Sidebar: View {
                 .font(.caption)
                 .foregroundColor(.secondary)
             NavigationLink(
-                destination: Text("Destination"),
+                destination: BucketsView(),
                 label: {
                     Label("Buckets", systemImage: "tray")
             })
             Spacer()
-            NavigationLink(
-                destination: SettingsView(),
-                label: {
-                    Label("Settings", systemImage: "gear")
-                })
+//            NavigationLink(
+//                destination: SettingsView(),
+//                label: {
+//                    Label("Settings", systemImage: "gear")
+//                })
         }
         .listStyle((SidebarListStyle()))
         .toolbar(content: {

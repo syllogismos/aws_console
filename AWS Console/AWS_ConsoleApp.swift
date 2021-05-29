@@ -9,9 +9,17 @@ import SwiftUI
 
 @main
 struct AWS_ConsoleApp: App {
+    @StateObject var userPreferences = UserPreferences()
+
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(userPreferences)
+        }
+        
+        Settings{
+            KeysView()
+                .environmentObject(userPreferences)
         }
     }
 }

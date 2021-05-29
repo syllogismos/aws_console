@@ -29,8 +29,8 @@ class EC2Instances: ObservableObject {
         self.region = UserDefaults.standard.object(forKey: "region") as? String ?? ""
         
         self.getEC2Instances()
-        print(self.accessKey)
-        print(self.secretKey)
+//        print(self.accessKey)
+//        print(self.secretKey)
     }
     
     func getEC2Instances() {
@@ -43,7 +43,7 @@ class EC2Instances: ObservableObject {
             do {
                 try client.syncShutdown()
             } catch {
-                print("client shutdown error deinit")
+                print("client shutdown error deinit in ec2instances")
             }
         }
         

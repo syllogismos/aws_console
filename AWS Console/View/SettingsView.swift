@@ -35,9 +35,9 @@ struct KeysView: View {
     var body: some View{
         VStack{
             
-            Text("Preferences")
-                .font(.title)
-                .multilineTextAlignment(.leading)
+//            Text("Preferences")
+//                .font(.title)
+//                .multilineTextAlignment(.leading)
             
             HStack{
                 Text("Access Key:")
@@ -76,7 +76,8 @@ struct KeysView: View {
 
             }
             Spacer()
-        }.frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+//        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding()
     }
 }
