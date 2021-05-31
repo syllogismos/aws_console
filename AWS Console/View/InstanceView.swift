@@ -12,7 +12,9 @@ struct InstanceView: View {
     var instance: EC2.Instance
     
     @EnvironmentObject var ec2Instances: EC2Instances
+    @EnvironmentObject var instanceTypes: InstanceTypes
     
+    @ViewBuilder
     var body: some View {
         VStack {
 //            Text("Instance Details").font(.title)
@@ -25,6 +27,13 @@ struct InstanceView: View {
                         ClickToCopy(title: "Launch Time", text: self.instance.launchTime!.description)
                         ClickToCopy(title: "State", text: self.instance.state?.name?.rawValue ?? "", clickToCopy: false)
                         ClickToCopy(title: "Availability Zone", text: self.instance.placement?.availabilityZone ?? "")
+                        ClickToCopy(title: "Public IP", text: self.instance.publicIpAddress ?? "-")
+                        ClickToCopy(title: "Public DNS", text: self.instance.publicDnsName ?? "-")
+                        ClickToCopy(title: "Private IP", text: self.instance.privateIpAddress ?? "")
+                        ClickToCopy(title: "Private DNS", text: self.instance.privateDnsName ?? "")
+                        if instanceTypes.pricingDetails != nil {
+                            ClickToCopy(title: "Price Per Hour", text: self.instanceTypes.pricingDetails!.terms.OnDemand.values.first?.priceDimensions.values.first?.pricePerUnit.USD ?? "-", clickToCopy: false)
+                        }
                     }
                     Spacer()
                     VStack(alignment: .center){
@@ -80,6 +89,7 @@ struct InstanceView: View {
                 Spacer()
             }
         }
+        .onAppear(perform: {instanceTypes.getPricingDetails(type: self.instance.instanceType!.rawValue)})
     }
 }
 
