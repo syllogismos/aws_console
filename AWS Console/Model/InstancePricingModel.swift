@@ -32,6 +32,7 @@ struct ProductAttributes: Codable {
     let networkPerformance: String!
     let instanceType: String!
     let servicecode: String!
+    let usagetype: String!
 }
 
 struct Terms: Codable {
@@ -50,6 +51,10 @@ struct PriceDimensionsAttributes: Codable {
 
 struct PricePerUnit: Codable {
     let USD: String!
+}
+
+func getNilPrice(type: String) -> PriceDetails {
+    return PriceDetails(product: Product(productFamily: "Compute Instance", attributes: ProductAttributes(memory: "", dedicatedEbsThroughput: "", vcpu: "", storage: "", instanceFamily: "", physicalProcessor: "", clockSpeed: "", ecu: "", networkPerformance: "", instanceType: type, servicecode: "AmazonEC2", usagetype: "")), serviceCode: "AmazonEC2", terms: Terms(OnDemand: ["sku": OnDemandAttributes(sku: "sku", effectiveDate: "", offerTermCode: "", priceDimensions: ["sku": PriceDimensionsAttributes(unit: "", endRange: "", description: "", rateCode: "", pricePerUnit: PricePerUnit(USD: "?"))])]))
 }
 
 //{

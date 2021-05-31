@@ -14,6 +14,7 @@ class InstanceTypes: ObservableObject{
     private var secretKey: String
     
     private var region: String
+    private var os: OperatingSystem
     
     @Published var instanceTypes = [EC2.InstanceType]()
     
@@ -21,18 +22,20 @@ class InstanceTypes: ObservableObject{
     
     @Published var instanceTypeDetails: EC2.InstanceTypeInfo?
     @Published var spotPriceHistory: [EC2.SpotPrice]?
-    @Published var pricingDetails: String?
+    @Published var pricingDetails: PriceDetails?
     
     func refreshKeys() {
         self.accessKey = UserDefaults.standard.object(forKey: "accessKey") as? String ?? ""
         self.secretKey = UserDefaults.standard.object(forKey: "secretKey") as? String ?? ""
         self.region = UserDefaults.standard.object(forKey: "region") as? String ?? ""
+        self.os = UserDefaults.standard.object(forKey: "os") as? OperatingSystem ?? LinuxOS
     }
     
     init() {
         self.accessKey = UserDefaults.standard.object(forKey: "accessKey") as? String ?? ""
         self.secretKey = UserDefaults.standard.object(forKey: "secretKey") as? String ?? ""
         self.region = UserDefaults.standard.object(forKey: "region") as? String ?? ""
+        self.os = UserDefaults.standard.object(forKey: "os") as? OperatingSystem ?? LinuxOS
         self.getInstanceOfferings()
     }
     
@@ -132,7 +135,7 @@ class InstanceTypes: ObservableObject{
         
         let ec2 = EC2(client: client, region: SotoCore.Region.init(awsRegionName: self.region))
         
-        let request = EC2.DescribeSpotPriceHistoryRequest(instanceTypes: [EC2.InstanceType(rawValue: type)], productDescriptions: ["Linux/UNIX (Amazon VPC)"])
+        let request = EC2.DescribeSpotPriceHistoryRequest(instanceTypes: [EC2.InstanceType(rawValue: type)], productDescriptions: [self.os.spotPriceRequestProductDescription])
         
         ec2.describeSpotPriceHistory(request)
             .whenComplete{ response in
@@ -143,7 +146,7 @@ class InstanceTypes: ObservableObject{
                     shutdown()
                 case .success(let output):
                     DispatchQueue.main.async {
-                        print(output)
+//                        print(output)
                         self.spotPriceHistory = output.spotPriceHistory
                         print("describe spot price history success")
                     }
@@ -169,7 +172,7 @@ class InstanceTypes: ObservableObject{
         
         let pricing = Pricing(client: client, region: SotoCore.Region.init(awsRegionName: self.region))
         
-        let request = Pricing.GetProductsRequest(filters: [Pricing.Filter(field: "instanceType", type: Pricing.FilterType.init(rawValue: "TERM_MATCH")!, value: type), Pricing.Filter(field: "location", type: Pricing.FilterType.init(rawValue: "TERM_MATCH")!, value: getRegionDescription(region: self.region))], maxResults: 1, serviceCode: "AmazonEC2")
+        let request = Pricing.GetProductsRequest(filters: [Pricing.Filter(field: "instanceType", type: Pricing.FilterType.init(rawValue: "TERM_MATCH")!, value: type), Pricing.Filter(field: "location", type: Pricing.FilterType.init(rawValue: "TERM_MATCH")!, value: getRegionDescription(region: self.region)), Pricing.Filter(field: "operatingSystem", type: Pricing.FilterType.init(rawValue: "TERM_MATCH")!, value: self.os.pricingAttributeName), Pricing.Filter(field: "usagetype", type: Pricing.FilterType.init(rawValue: "TERM_MATCH")!, value: "BoxUsage:\(type)")], maxResults: 1, serviceCode: "AmazonEC2")
         
         pricing.getProducts(request)
             .whenComplete{response in
@@ -183,12 +186,16 @@ class InstanceTypes: ObservableObject{
                     DispatchQueue.main.async{
 //                        print(output)
                         print("pricing request success")
-                        self.pricingDetails = output.priceList?.first
-                        print(self.pricingDetails!)
-//                        let string_escape = self.pricingDetails!.replacingOccurrences(of: "\\", with: "")
-                        let json = try! JSONDecoder().decode(PriceDetails.self, from: self.pricingDetails!.data(using: .utf8)!)
-                        print(json)
-                        print(json.terms.OnDemand.values.first?.priceDimensions.values.first?.pricePerUnit.USD as Any)
+                        let pricingDetailsString = output.priceList?.first
+                        if pricingDetailsString != nil{
+//                            print(pricingDetailsString!)
+                            self.pricingDetails = try! JSONDecoder().decode(PriceDetails.self, from: pricingDetailsString!.data(using: .utf8)!)
+//                            print(self.pricingDetails!)
+                            print(self.pricingDetails?.terms.OnDemand.values.first?.priceDimensions.values.first?.pricePerUnit.USD as Any)
+                        } else {
+                            self.pricingDetails = getNilPrice(type: type)
+                        }
+                        
                     }
                     shutdown()
                 }
