@@ -22,15 +22,21 @@ struct InstanceView: View {
             VStack {
                 HStack {
                     VStack(alignment: .leading) {
-                        ClickToCopy(title: "Instance Id", text: self.instance.instanceId!)
-                        ClickToCopy(title: "Instance Type", text: self.instance.instanceType!.rawValue)
-                        ClickToCopy(title: "Launch Time", text: self.instance.launchTime!.description)
-                        ClickToCopy(title: "State", text: self.instance.state?.name?.rawValue ?? "", clickToCopy: false)
-                        ClickToCopy(title: "Availability Zone", text: self.instance.placement?.availabilityZone ?? "")
-                        ClickToCopy(title: "Public IP", text: self.instance.publicIpAddress ?? "-")
-                        ClickToCopy(title: "Public DNS", text: self.instance.publicDnsName ?? "-")
-                        ClickToCopy(title: "Private IP", text: self.instance.privateIpAddress ?? "")
-                        ClickToCopy(title: "Private DNS", text: self.instance.privateDnsName ?? "")
+                        Group {
+                            ClickToCopy(title: "Instance Id", text: self.instance.instanceId!)
+                            ClickToCopy(title: "Instance Type", text: self.instance.instanceType!.rawValue)
+                            ClickToCopy(title: "Launch Time", text: self.instance.launchTime!.description)
+                            ClickToCopy(title: "State", text: self.instance.state?.name?.rawValue ?? "", clickToCopy: false)
+                            ClickToCopy(title: "Availability Zone", text: self.instance.placement?.availabilityZone ?? "")
+                            ClickToCopy(title: "Public IP", text: self.instance.publicIpAddress ?? "-")
+                            ClickToCopy(title: "Public DNS", text: self.instance.publicDnsName ?? "-")
+                            ClickToCopy(title: "Private IP", text: self.instance.privateIpAddress ?? "")
+                            ClickToCopy(title: "Private DNS", text: self.instance.privateDnsName ?? "")
+                            ClickToCopy(title: "VPC Id", text: self.instance.vpcId ?? "")
+                        }
+                        
+                        
+                        
                         if instanceTypes.pricingDetails != nil {
                             ClickToCopy(title: "Price Per Hour", text: self.instanceTypes.pricingDetails!.terms.OnDemand.values.first?.priceDimensions.values.first?.pricePerUnit.USD ?? "-", clickToCopy: false)
                         }

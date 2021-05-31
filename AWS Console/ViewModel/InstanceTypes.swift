@@ -71,7 +71,7 @@ class InstanceTypes: ObservableObject{
                     shutdown()
                 case .success(let output):
                     DispatchQueue.main.async {
-                        print(output.instanceTypeOfferings!)
+//                        print(output.instanceTypeOfferings!)
                         self.instanceTypes = output.instanceTypeOfferings!.map({$0.instanceType!})
 //                        self.categorizeTypes()
                         print("Success instance type offering request")
@@ -109,7 +109,7 @@ class InstanceTypes: ObservableObject{
                     shutdown()
                 case .success(let output):
                     DispatchQueue.main.async {
-                        print(output)
+//                        print(output)
                         self.instanceTypeDetails = output.instanceTypes?.first
                         print("describe instance type request succeeded")
                     }

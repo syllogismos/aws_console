@@ -15,7 +15,7 @@ struct EC2View: View {
     
     
     var body: some View {
-        List(self.instances.instances, id: \.instanceId){ instance in
+        List(instances.searchString == "" ? self.instances.instances : self.instances.instances.filter({self.instances.searchInstanceString(i: $0, searchString: self.instances.searchString)}), id: \.instanceId){ instance in
             NavigationLink(
                 destination: InstanceView(instance: instance),
                 label: {
@@ -24,6 +24,9 @@ struct EC2View: View {
         }
         .navigationTitle("EC2 Instances")
         .toolbar{
+            TextField("Search...", text: $instances.searchString)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .frame(minWidth: 180)
             Picker(selection: $userPreferences.region, label: Text("Region")) {ForEach(regions, id: \.self){region in Text(region)}}
                 .onChange(of: userPreferences.region, perform: {_ in
                     instances.getEC2Instances()

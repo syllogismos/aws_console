@@ -11,6 +11,7 @@ import Combine
 
 class EC2Instances: ObservableObject {
     @Published var instances = [EC2.Instance]()
+    @Published var searchString = ""
     
     private var subscription: AnyCancellable?
     private var accessKey: String
@@ -66,6 +67,7 @@ class EC2Instances: ObservableObject {
                         for _ in 0..<5 {instances += instances}
                         print("Success EC2")
                         self.instances = instances
+//                        self.searchInstanceString(i: <#T##EC2.Instance#>, searchString: <#T##String#>)(i: self.instances.first!, searchString: "")
                     }
                     shutdown()
                 }
@@ -169,5 +171,16 @@ class EC2Instances: ObservableObject {
     func test(){
         print("stupid debug statement")
         return
+    }
+    
+    func searchInstanceString(i: EC2.Instance, searchString: String) -> Bool{
+        let tags = i.tags ?? []
+        let groups = i.securityGroups ?? []
+
+        let instanceString = "\(i.capacityReservationId ?? "") \(i.instanceId ?? "") \(i.clientToken ?? "") \(i.imageId ?? "") \(i.kernelId ?? "") \(i.privateDnsName ?? "") \(String(describing: i.privateIpAddress)) \(i.publicDnsName ?? "") \(String(describing: i.publicIpAddress)) \(i.instanceType?.rawValue ?? "")  \(i.outpostArn ?? "") \(i.placement!.availabilityZone ?? "") \(tags.map({$0.key ?? ""}).joined(separator: ", ")) \(tags.map({$0.value ?? ""}).joined(separator: ", ")) \(groups.map({$0.groupId ?? ""}).joined(separator: ", ")) \(groups.map({$0.groupName ?? ""}).joined(separator: ", ")) \(i.vpcId ?? "") \(i.state?.name?.rawValue ?? "")"
+        
+//        print(instanceString)
+    
+        return instanceString.contains(searchString)
     }
 }
