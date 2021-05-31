@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		046E75902662776F001730B2 /* InstanceTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046E758F2662776F001730B2 /* InstanceTypes.swift */; };
 		046E759226627A79001730B2 /* InstanceTypesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046E759126627A79001730B2 /* InstanceTypesView.swift */; };
+		046E75942664DBE8001730B2 /* InstanceTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046E75932664DBE8001730B2 /* InstanceTypeView.swift */; };
+		046E75972664ED28001730B2 /* RegionsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046E75962664ED28001730B2 /* RegionsHelper.swift */; };
+		046E75992664FDA0001730B2 /* InstancePricingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046E75982664FDA0001730B2 /* InstancePricingModel.swift */; };
+		046E759B26654C6E001730B2 /* OSModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046E759A26654C6D001730B2 /* OSModel.swift */; };
 		049F9415265E79D3003F3235 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04F4C451265D3250006A3DDE /* Assets.xcassets */; };
 		049F9417265FBED5003F3235 /* S3Buckets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049F9416265FBED5003F3235 /* S3Buckets.swift */; };
 		049F9419265FC43F003F3235 /* BucketsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049F9418265FC43F003F3235 /* BucketsView.swift */; };
@@ -55,6 +59,10 @@
 /* Begin PBXFileReference section */
 		046E758F2662776F001730B2 /* InstanceTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstanceTypes.swift; sourceTree = "<group>"; };
 		046E759126627A79001730B2 /* InstanceTypesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstanceTypesView.swift; sourceTree = "<group>"; };
+		046E75932664DBE8001730B2 /* InstanceTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstanceTypeView.swift; sourceTree = "<group>"; };
+		046E75962664ED28001730B2 /* RegionsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionsHelper.swift; sourceTree = "<group>"; };
+		046E75982664FDA0001730B2 /* InstancePricingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstancePricingModel.swift; sourceTree = "<group>"; };
+		046E759A26654C6D001730B2 /* OSModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSModel.swift; sourceTree = "<group>"; };
 		049F9416265FBED5003F3235 /* S3Buckets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3Buckets.swift; sourceTree = "<group>"; };
 		049F9418265FC43F003F3235 /* BucketsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketsView.swift; sourceTree = "<group>"; };
 		049F941A265FC5F9003F3235 /* BucketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketView.swift; sourceTree = "<group>"; };
@@ -113,6 +121,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		046E75952664ED15001730B2 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				046E75962664ED28001730B2 /* RegionsHelper.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		04F4C441265D324C006A3DDE = {
 			isa = PBXGroup;
 			children = (
@@ -136,6 +152,7 @@
 		04F4C44C265D324C006A3DDE /* AWS Console */ = {
 			isa = PBXGroup;
 			children = (
+				046E75952664ED15001730B2 /* Helpers */,
 				04F4C47B265D32D5006A3DDE /* ViewModel */,
 				04F4C47A265D32CE006A3DDE /* Model */,
 				04F4C479265D32B2006A3DDE /* View */,
@@ -188,6 +205,7 @@
 				049F941A265FC5F9003F3235 /* BucketView.swift */,
 				049F941C266200E0003F3235 /* S3ObjectsView.swift */,
 				046E759126627A79001730B2 /* InstanceTypesView.swift */,
+				046E75932664DBE8001730B2 /* InstanceTypeView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -196,6 +214,8 @@
 			isa = PBXGroup;
 			children = (
 				04F4C495265E663C006A3DDE /* Constants.swift */,
+				046E75982664FDA0001730B2 /* InstancePricingModel.swift */,
+				046E759A26654C6D001730B2 /* OSModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -357,11 +377,15 @@
 				04F4C496265E663C006A3DDE /* Constants.swift in Sources */,
 				04F4C450265D324C006A3DDE /* ContentView.swift in Sources */,
 				04F4C48E265E33F6006A3DDE /* UserPreferences.swift in Sources */,
+				046E75972664ED28001730B2 /* RegionsHelper.swift in Sources */,
+				046E75992664FDA0001730B2 /* InstancePricingModel.swift in Sources */,
 				046E759226627A79001730B2 /* InstanceTypesView.swift in Sources */,
 				04F4C47F265D359A006A3DDE /* EC2View.swift in Sources */,
 				046E75902662776F001730B2 /* InstanceTypes.swift in Sources */,
 				04F4C47D265D3314006A3DDE /* Sidebar.swift in Sources */,
 				049F9419265FC43F003F3235 /* BucketsView.swift in Sources */,
+				046E75942664DBE8001730B2 /* InstanceTypeView.swift in Sources */,
+				046E759B26654C6E001730B2 /* OSModel.swift in Sources */,
 				04F4C492265E3FFF006A3DDE /* InstanceView.swift in Sources */,
 				04F4C483265D35B3006A3DDE /* SettingsView.swift in Sources */,
 				04F4C44E265D324C006A3DDE /* AWS_ConsoleApp.swift in Sources */,

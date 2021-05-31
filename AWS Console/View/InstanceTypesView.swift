@@ -23,35 +23,40 @@ struct InstanceTypesView: View {
                 if generalPurpose.count > 0 {
                     Section(header: Text("General Purpose").foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)) {
                         ForEach(instanceTypes.searchString.isEmpty ? generalPurpose : generalPurpose.filter({$0.contains(instanceTypes.searchString)}), id: \.self){type in
-                            Text(type)
+//                            Text(type)
+                            NavigationLink(destination: InstanceTypeView(type: type), label: {Text(type)})
                         }
                     }
                 }
                 if computeOptimized.count > 0 {
                     Section(header: Text("Compute Optimized").foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)) {
                         ForEach(instanceTypes.searchString.isEmpty ? computeOptimized : computeOptimized.filter({$0.contains(instanceTypes.searchString)}) , id: \.self){type in
-                            Text(type)
+//                            Text(type)
+                            NavigationLink(destination: InstanceTypeView(type: type), label: {Text(type)})
                         }
                     }
                 }
                 if acceleratedCompute.count > 0 {
                     Section(header: Text("Accelerated Compute").foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)) {
                         ForEach(instanceTypes.searchString.isEmpty ? acceleratedCompute : acceleratedCompute.filter({$0.contains(instanceTypes.searchString)}), id: \.self){type in
-                            Text(type)
+//                            Text(type)
+                            NavigationLink(destination: InstanceTypeView(type: type), label: {Text(type)})
                         }
                     }
                 }
                 if memoryOptimized.count > 0 {
                     Section(header: Text("Memory Optimized").foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)) {
                         ForEach(instanceTypes.searchString.isEmpty ? memoryOptimized : memoryOptimized.filter({$0.contains(instanceTypes.searchString)}), id: \.self){type in
-                            Text(type)
+//                            Text(type)
+                            NavigationLink(destination: InstanceTypeView(type: type), label: {Text(type)})
                         }
                     }
                 }
                 if storageOptimized.count > 0 {
                     Section(header: Text("Storage Optimized").foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)) {
                         ForEach(instanceTypes.searchString.isEmpty ? storageOptimized : storageOptimized.filter({$0.contains(instanceTypes.searchString)}), id: \.self){type in
-                            Text(type)
+//                            Text(type)
+                            NavigationLink(destination: InstanceTypeView(type: type), label: {Text(type)})
                         }
                     }
                 }
@@ -60,12 +65,14 @@ struct InstanceTypesView: View {
         .navigationTitle("Instance Types")
         .toolbar {
             HStack {
-                Image(systemName: "magnifyingglass")
-                    .foregroundColor(.gray)
+//                Image(systemName: "magnifyingglass")
+//                    .foregroundColor(.gray)
                 TextField("Search...", text: $instanceTypes.searchString)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .frame(minWidth: 180)
                 //                    .textFieldStyle(PlainTextFieldStyle())
+            }
+            Picker(selection: $userPreferences.os, label: Text("Operating System")){ForEach(OSList, id: \.pricingAttributeName){os in Text(os.name).tag(os)}
             }
             Picker(selection: $userPreferences.region, label: Text("Region")) {ForEach(regions, id: \.self){region in Text(region)}}
                 .onChange(of: userPreferences.region, perform: {_ in

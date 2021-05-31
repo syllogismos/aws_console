@@ -27,10 +27,17 @@ class UserPreferences: ObservableObject{
             UserDefaults.standard.set(region, forKey: "region")
         }
     }
+    
+    @Published var os: OperatingSystem{
+        didSet {
+            UserDefaults.standard.set(os, forKey: "os")
+        }
+    }
         
     init() {
         self.accessKey = UserDefaults.standard.object(forKey: "accessKey") as? String ?? ""
         self.secretKey = UserDefaults.standard.object(forKey: "secretKey") as? String ?? ""
         self.region = UserDefaults.standard.object(forKey: "region") as? String ?? "us-east-1"
+        self.os = UserDefaults.standard.object(forKey: "os") as? OperatingSystem ?? LinuxOS
     }
 }
