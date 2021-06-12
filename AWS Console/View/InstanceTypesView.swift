@@ -61,6 +61,12 @@ struct InstanceTypesView: View {
                     }
                 }
             }
+//            List{
+//                ForEach(instanceTypes.instanceTypes, id: \.self){type in
+//                    NavigationLink(destination: InstanceTypeView(type: type), label: {Text(type)})
+//                }
+//
+//            }
         }
         .navigationTitle("Instance Types")
         .toolbar {

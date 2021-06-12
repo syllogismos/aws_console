@@ -12,6 +12,7 @@ struct S3ObjectsView: View {
     @EnvironmentObject var s3Buckets: S3Buckets
     @EnvironmentObject var spotPrice: SpotPrice
     var bucketName: String
+    @ViewBuilder
     var body: some View {
         HStack{
             if s3Buckets.objects != nil{
@@ -20,13 +21,21 @@ struct S3ObjectsView: View {
                         Section(header: Text("Folders").foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)) {
                             ForEach(s3Buckets.objects.commonPrefixes!, id: \.prefix){folder in
                                 Text(folder.prefix!)
+                                    .contextMenu{
+                                        Button(action: {}, label: {Text("Download")})
+                                        Button(action: {}, label: {Text("Delete")})
+                                    }
                             }
                         }
                     }
                     if s3Buckets.objects.contents != nil {
                         Section(header: Text("Objects").foregroundColor(.blue)){
                             ForEach(s3Buckets.objects.contents!, id: \.key){object in
-                                Text(object.key!)
+                                S3ObjectView(object: object)
+                                    .contextMenu{
+                                        Button(action: {}, label: {Text("Download")})
+                                        Button(action: {}, label: {Text("Delete")})
+                                    }
                             }
                         }
                     }
@@ -40,6 +49,17 @@ struct S3ObjectsView: View {
         })
     }
     
+}
+
+struct S3ObjectView: View {
+    var object: S3.Object
+    var body: some View{
+        HStack{
+            Text(object.key!)
+            Spacer()
+            Text(object.size!.description).font(.caption)
+        }
+    }
 }
 
 //struct S3ObjectsView_Previews: PreviewProvider {

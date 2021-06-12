@@ -13,6 +13,7 @@
 		046E75972664ED28001730B2 /* RegionsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046E75962664ED28001730B2 /* RegionsHelper.swift */; };
 		046E75992664FDA0001730B2 /* InstancePricingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046E75982664FDA0001730B2 /* InstancePricingModel.swift */; };
 		046E759B26654C6E001730B2 /* OSModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046E759A26654C6D001730B2 /* OSModel.swift */; };
+		04828ED92666F21600CA917A /* InstanceTypesCategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04828ED82666F21600CA917A /* InstanceTypesCategoriesView.swift */; };
 		049F9415265E79D3003F3235 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04F4C451265D3250006A3DDE /* Assets.xcassets */; };
 		049F9417265FBED5003F3235 /* S3Buckets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049F9416265FBED5003F3235 /* S3Buckets.swift */; };
 		049F9419265FC43F003F3235 /* BucketsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049F9418265FC43F003F3235 /* BucketsView.swift */; };
@@ -63,6 +64,7 @@
 		046E75962664ED28001730B2 /* RegionsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionsHelper.swift; sourceTree = "<group>"; };
 		046E75982664FDA0001730B2 /* InstancePricingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstancePricingModel.swift; sourceTree = "<group>"; };
 		046E759A26654C6D001730B2 /* OSModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSModel.swift; sourceTree = "<group>"; };
+		04828ED82666F21600CA917A /* InstanceTypesCategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstanceTypesCategoriesView.swift; sourceTree = "<group>"; };
 		049F9416265FBED5003F3235 /* S3Buckets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3Buckets.swift; sourceTree = "<group>"; };
 		049F9418265FC43F003F3235 /* BucketsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketsView.swift; sourceTree = "<group>"; };
 		049F941A265FC5F9003F3235 /* BucketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketView.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 				049F941C266200E0003F3235 /* S3ObjectsView.swift */,
 				046E759126627A79001730B2 /* InstanceTypesView.swift */,
 				046E75932664DBE8001730B2 /* InstanceTypeView.swift */,
+				04828ED82666F21600CA917A /* InstanceTypesCategoriesView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -392,6 +395,7 @@
 				049F9417265FBED5003F3235 /* S3Buckets.swift in Sources */,
 				04F4C481265D35A7006A3DDE /* EBSView.swift in Sources */,
 				04F4C490265E3C0D006A3DDE /* EC2Instances.swift in Sources */,
+				04828ED92666F21600CA917A /* InstanceTypesCategoriesView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
