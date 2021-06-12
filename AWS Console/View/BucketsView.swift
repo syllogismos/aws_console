@@ -19,6 +19,11 @@ struct BucketsView: View {
         }
         .navigationTitle("S3 Buckets")
         .toolbar{
+            Button(action: {
+                self.s3Buckets.goBackOneFolder()
+            }){
+                Image(systemName: "chevron.backward")
+            }
             Button(action: {s3Buckets.getS3Buckets()}){
                 Image(systemName: "arrow.clockwise")
             }

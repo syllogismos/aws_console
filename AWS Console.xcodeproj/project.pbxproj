@@ -17,7 +17,7 @@
 		049F9415265E79D3003F3235 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04F4C451265D3250006A3DDE /* Assets.xcassets */; };
 		049F9417265FBED5003F3235 /* S3Buckets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049F9416265FBED5003F3235 /* S3Buckets.swift */; };
 		049F9419265FC43F003F3235 /* BucketsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049F9418265FC43F003F3235 /* BucketsView.swift */; };
-		049F941B265FC5F9003F3235 /* BucketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049F941A265FC5F9003F3235 /* BucketView.swift */; };
+		049F941B265FC5F9003F3235 /* DragDropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049F941A265FC5F9003F3235 /* DragDropView.swift */; };
 		049F941D266200E0003F3235 /* S3ObjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049F941C266200E0003F3235 /* S3ObjectsView.swift */; };
 		049F941F26621F22003F3235 /* SpotPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049F941E26621F22003F3235 /* SpotPrice.swift */; };
 		04F4C44E265D324C006A3DDE /* AWS_ConsoleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4C44D265D324C006A3DDE /* AWS_ConsoleApp.swift */; };
@@ -67,7 +67,7 @@
 		04828ED82666F21600CA917A /* InstanceTypesCategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstanceTypesCategoriesView.swift; sourceTree = "<group>"; };
 		049F9416265FBED5003F3235 /* S3Buckets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3Buckets.swift; sourceTree = "<group>"; };
 		049F9418265FC43F003F3235 /* BucketsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketsView.swift; sourceTree = "<group>"; };
-		049F941A265FC5F9003F3235 /* BucketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketView.swift; sourceTree = "<group>"; };
+		049F941A265FC5F9003F3235 /* DragDropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragDropView.swift; sourceTree = "<group>"; };
 		049F941C266200E0003F3235 /* S3ObjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3ObjectsView.swift; sourceTree = "<group>"; };
 		049F941E26621F22003F3235 /* SpotPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotPrice.swift; sourceTree = "<group>"; };
 		04F4C44A265D324C006A3DDE /* AWS Console.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AWS Console.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -204,7 +204,7 @@
 				04F4C491265E3FFF006A3DDE /* InstanceView.swift */,
 				04F4C493265E57FF006A3DDE /* ClickToCopy.swift */,
 				049F9418265FC43F003F3235 /* BucketsView.swift */,
-				049F941A265FC5F9003F3235 /* BucketView.swift */,
+				049F941A265FC5F9003F3235 /* DragDropView.swift */,
 				049F941C266200E0003F3235 /* S3ObjectsView.swift */,
 				046E759126627A79001730B2 /* InstanceTypesView.swift */,
 				046E75932664DBE8001730B2 /* InstanceTypeView.swift */,
@@ -374,7 +374,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				049F941D266200E0003F3235 /* S3ObjectsView.swift in Sources */,
-				049F941B265FC5F9003F3235 /* BucketView.swift in Sources */,
+				049F941B265FC5F9003F3235 /* DragDropView.swift in Sources */,
 				04F4C494265E57FF006A3DDE /* ClickToCopy.swift in Sources */,
 				049F941F26621F22003F3235 /* SpotPrice.swift in Sources */,
 				04F4C496265E663C006A3DDE /* Constants.swift in Sources */,

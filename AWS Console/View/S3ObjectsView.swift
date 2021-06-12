@@ -15,47 +15,64 @@ struct S3ObjectsView: View {
     @ViewBuilder
     var body: some View {
         HStack{
-            if s3Buckets.objects != nil{
-                List{
-                    if s3Buckets.objects.commonPrefixes != nil {
-                        Section(header: Text("Folders").foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)) {
-                            ForEach(s3Buckets.objects.commonPrefixes!, id: \.prefix){folder in
-                                Text(folder.prefix!)
-                                    .contextMenu{
-                                        Button(action: {}, label: {Text("Download")})
-                                        Button(action: {}, label: {Text("Delete")})
+            HStack{
+                if s3Buckets.fetchingObjects {
+                    ProgressView()
+                } else {
+                    if s3Buckets.objects != nil{
+                        List{
+                            if s3Buckets.objects.commonPrefixes != nil {
+                                Section(header: Text("Folders").foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)) {
+                                    ForEach(s3Buckets.objects.commonPrefixes!, id: \.prefix){folder in
+                                        Label(self.removePrefix(name: folder.prefix!), systemImage: "folder")
+                                            .gesture(TapGesture(count: 2).onEnded {
+                                                print("double clicked")
+                                                s3Buckets.listObjects(bucketName: bucketName, prefix: "\(folder.prefix!)")
+                                            })
+                                            .contextMenu{
+                                                Button(action: {s3Buckets.listObjects(bucketName: bucketName, prefix: "\(folder.prefix!)")}, label: {Text("Open")})
+                                                Button(action: {}, label: {Text("Download")})
+                                                Button(action: {}, label: {Text("Delete")})
+                                            }
                                     }
+                                }
                             }
-                        }
-                    }
-                    if s3Buckets.objects.contents != nil {
-                        Section(header: Text("Objects").foregroundColor(.blue)){
-                            ForEach(s3Buckets.objects.contents!, id: \.key){object in
-                                S3ObjectView(object: object)
-                                    .contextMenu{
-                                        Button(action: {}, label: {Text("Download")})
-                                        Button(action: {}, label: {Text("Delete")})
+                            if s3Buckets.objects.contents != nil {
+                                Section(header: Text("Objects").foregroundColor(.blue)){
+                                    ForEach(s3Buckets.objects.contents!, id: \.key){object in
+                                        S3ObjectView(object: object, name: self.removePrefix(name: object.key!))
+                                            .contextMenu{
+                                                Button(action: {}, label: {Text("Download")})
+                                                Button(action: {}, label: {Text("Delete")})
+                                            }
                                     }
+                                }
                             }
                         }
                     }
                 }
-            } else {
-                Text("Error while querying objects")
             }
+            .frame(minWidth: 400)
+            DragDropView(bucketName: bucketName)
+            
         }.onAppear(perform: {
-            s3Buckets.listObjects(bucketName: bucketName)
-            spotPrice.getSpotPriceHistory(instanceType: "p3.2xlarge")
+            s3Buckets.listObjects(bucketName: bucketName, prefix: "", resetPrefixes: true)
+            //            spotPrice.getSpotPriceHistory(instanceType: "p3.2xlarge")
         })
+    }
+    
+    func removePrefix(name: String) -> String{
+        return String(name.dropFirst(self.s3Buckets.prefixes.last!.count))
     }
     
 }
 
 struct S3ObjectView: View {
     var object: S3.Object
+    var name: String
     var body: some View{
         HStack{
-            Text(object.key!)
+            Text(name)
             Spacer()
             Text(object.size!.description).font(.caption)
         }

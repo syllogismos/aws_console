@@ -12,6 +12,9 @@ import Combine
 class S3Buckets: ObservableObject{
     @Published var buckets = [S3.Bucket]()
     @Published var objects: S3.ListObjectsV2Output!
+    @Published var prefixes = [""]
+    @Published var fetchingObjects = false
+    @Published var currentBucket = ""
     
     private var accessKey: String
     private var secretKey: String
@@ -58,10 +61,10 @@ class S3Buckets: ObservableObject{
                     self.buckets = []
                 case .success(let output):
                     DispatchQueue.main.async { // published updates should be on the main thread
-//                        print(output)
+                        //                        print(output)
                         print("Success S3")
                         self.buckets = output.buckets ?? []
-//                        print(self.buckets)
+                        //                        print(self.buckets)
                         print(self.buckets.count)
                         print("number of buckets")
                     }
@@ -70,7 +73,25 @@ class S3Buckets: ObservableObject{
             }
     }
     
-    func listObjects(bucketName: String){
+    func goBackOneFolder(){
+        if self.currentBucket != "" && self.prefixes.count > 1{
+            print(self.prefixes)
+            _ = self.prefixes.popLast()
+            self.listObjects(bucketName: self.currentBucket, prefix: self.prefixes.last!, goingBack: true)
+        }
+    }
+    
+    func listObjects(bucketName: String, prefix: String, resetPrefixes: Bool = false, goingBack: Bool = false){
+        self.currentBucket = bucketName
+        self.fetchingObjects = true
+        if !goingBack{
+            if resetPrefixes{
+                self.prefixes = [""]
+            } else {
+                self.prefixes.append(prefix)
+            }
+        }
+        print(self.prefixes)
         print("Getting objects in the bucket \(bucketName)")
         refreshKeys()
         let client = AWSClient(credentialProvider: .static(accessKeyId: self.accessKey, secretAccessKey: self.secretKey), httpClientProvider: .createNew)
@@ -85,20 +106,22 @@ class S3Buckets: ObservableObject{
         }
         
         let s3 = S3(client: client)
-        let request = S3.ListObjectsV2Request(bucket: bucketName, delimiter: "/")
+        let request = S3.ListObjectsV2Request(bucket: bucketName, delimiter: "/", prefix: self.prefixes.last)
         s3.listObjectsV2(request)
             .whenComplete{ response in
                 switch response {
                 case .failure(let error):
                     print(error)
                     print("Failure listObjectsv2")
+                    self.fetchingObjects = false
                     shutdown()
-//                    objects = nil
+                //                    objects = nil
                 case .success(let output):
                     DispatchQueue.main.async {
-//                        let objects = output.contents
-                        print(output)
-                        print("TTTTTTTTTTTTTTTTTT")
+                        //                        let objects = output.contents
+                        //                        print(output)
+                        //                        print("TTTTTTTTTTTTTTTTTT")
+                        self.fetchingObjects = false
                         shutdown()
                         self.objects = output
                     }

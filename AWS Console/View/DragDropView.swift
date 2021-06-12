@@ -7,18 +7,19 @@
 
 import SwiftUI
 
-struct BucketView: View {
+struct DragDropView: View {
     @State var image = NSImage(named: "image")
     var bucketName: String
-    var listObjects: () -> ()
+    //    var listObjects: () -> ()
     var body: some View {
-        VStack {
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-                .onTapGesture {
-                    listObjects()
-                }
-            InputView(image: $image)
-        }
+        //        VStack {
+        //            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        //                .onTapGesture {
+        //                    listObjects()
+        //                }
+        InputView(image: $image)
+            .padding()
+        //        }
     }
 }
 
@@ -34,12 +35,12 @@ struct InputView: View {
     
     var body: some View {
         VStack(spacing: 16) {
-            HStack {
-                Text("Input Image (PNG,JPG,JPEG,HEIC)")
-                Button(action: selectFile) {
-                    Text("From Finder")
-                }
-            }
+            //            HStack {
+            //                Text("Input Image (PNG,JPG,JPEG,HEIC)")
+            //                Button(action: selectFile) {
+            //                    Text("From Finder")
+            //                }
+            //            }
             InputImageView(image: self.$image)
         }
     }
@@ -56,7 +57,7 @@ struct InputView: View {
 struct InputImageView: View {
     
     @Binding var image: NSImage?
-        
+    
     var body: some View {
         ZStack {
             if self.image != nil {
@@ -71,7 +72,7 @@ struct InputImageView: View {
         .frame(height: 320)
         .background(Color.black.opacity(0.5))
         .cornerRadius(8)
-            
+        
         .onDrop(of: ["public.url","public.file-url"], isTargeted: nil) { (items) -> Bool in
             if let item = items.first {
                 if let identifier = item.registeredTypeIdentifiers.first {
@@ -108,8 +109,8 @@ extension NSOpenPanel {
         panel.canChooseFiles = true
         panel.begin { (result) in
             if result == .OK,
-                let url = panel.urls.first,
-                let image = NSImage(contentsOf: url) {
+               let url = panel.urls.first,
+               let image = NSImage(contentsOf: url) {
                 completion(.success(image))
             } else {
                 completion(.failure(
