@@ -17,7 +17,7 @@ struct BucketsView: View {
                 destination: S3ObjectsView(bucketName: bucket.name ?? ""), label: {Text(bucket.name ?? "")}
             )
         }
-        .navigationTitle("S3 Buckets")
+        .navigationTitle("S3 Buckets: \(s3Buckets.currentBucket)/\(s3Buckets.prefixes.last!)")
         .toolbar{
             Button(action: {
                 self.s3Buckets.goBackOneFolder()

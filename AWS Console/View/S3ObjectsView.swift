@@ -43,7 +43,7 @@ struct S3ObjectsView: View {
                                         S3ObjectView(object: object, name: self.removePrefix(name: object.key!))
                                             .contextMenu{
                                                 Button(action: {}, label: {Text("Download")})
-                                                Button(action: {}, label: {Text("Delete")})
+                                                Button(action: {s3Buckets.deleteObject(bucketName: bucketName, key: object.key!)}, label: {Text("Delete")})
                                             }
                                     }
                                 }

@@ -113,7 +113,9 @@ class S3Buckets: ObservableObject{
                 case .failure(let error):
                     print(error)
                     print("Failure listObjectsv2")
-                    self.fetchingObjects = false
+                    DispatchQueue.main.async {
+                        self.fetchingObjects = false
+                    }
                     shutdown()
                 //                    objects = nil
                 case .success(let output):
@@ -128,5 +130,58 @@ class S3Buckets: ObservableObject{
                 }
             }
         return
+    }
+    
+    func deleteObject(bucketName: String, key: String){
+        print("deleting the object \(key) in bucket \(bucketName)")
+        refreshKeys()
+        let client = AWSClient(credentialProvider: .static(accessKeyId: self.accessKey, secretAccessKey: self.secretKey), httpClientProvider: .createNew)
+        
+        let shutdown = {
+            [client] in
+            do {
+                try client.syncShutdown()
+            } catch {
+                print("client shutdown failed in deleteObject func")
+            }
+        }
+        
+        let s3 = S3(client: client)
+        let request = S3.DeleteObjectRequest(bucket: bucketName, key: key)
+        s3.deleteObject(request)
+            .whenComplete{ response in
+                switch response {
+                case .failure(let error):
+                    print(error)
+                    print("Failure deleteObject")
+                    shutdown()
+                case .success(let output):
+                    DispatchQueue.main.async{
+                        shutdown()
+                        print(output)
+                        print("EEEEEEEEEEEEEEEEEEEEEEEEEEE")
+                    }
+                }
+            }
+        return
+    }
+    
+    func downloadObject(bucketName: String, key: String){
+        print("downloading the object \(key) in bucket \(bucketName)")
+        refreshKeys()
+        
+        let client = AWSClient(credentialProvider: .static(accessKeyId: self.accessKey, secretAccessKey: self.secretKey), httpClientProvider: .createNew)
+        
+        let shutdown = {
+            [client] in
+            do {
+                try client.syncShutdown()
+            } catch {
+                print("client shutdown failed in downloadObject func")
+            }
+        }
+        
+        let s3 = S3(client: client)
+//        let request = S3.
     }
 }
