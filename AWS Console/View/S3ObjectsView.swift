@@ -42,7 +42,7 @@ struct S3ObjectsView: View {
                                     ForEach(s3Buckets.objects.contents!, id: \.key){object in
                                         S3ObjectView(object: object, name: self.removePrefix(name: object.key!))
                                             .contextMenu{
-                                                Button(action: {}, label: {Text("Download")})
+                                                Button(action: {s3Buckets.downloadObjectStreaming(bucketName: bucketName, key: object.key!)}, label: {Text("Download")})
                                                 Button(action: {s3Buckets.deleteObject(bucketName: bucketName, key: object.key!)}, label: {Text("Delete")})
                                             }
                                     }

@@ -182,6 +182,111 @@ class S3Buckets: ObservableObject{
         }
         
         let s3 = S3(client: client)
-//        let request = S3.
+        let request = S3.GetObjectRequest(bucket: bucketName, key: key)
+        s3.getObject(request)
+            .whenComplete{response in
+                switch response {
+                case .failure(let error):
+                    print(error)
+                    print("failure get object")
+                    shutdown()
+                case .success(let output):
+                    print(output)
+                    writeToFile(data: (output.body?.asData())!, fileName: key)
+                    print("00000000000000000000000000")
+                    shutdown()
+                }
+            }
+        return
     }
+    
+    func downloadObjectStreaming(bucketName: String, key: String){
+        // TODO: fix filename when you get it from the key, only take the last
+        // part of the key after /
+        print("streaming the object \(key) in bucktet \(bucketName)")
+        refreshKeys()
+        
+        let client = AWSClient(credentialProvider: .static(accessKeyId: self.accessKey, secretAccessKey: self.secretKey), httpClientProvider: .createNew)
+        
+        let shutdown = {
+            [client] in
+            do {
+                try client.syncShutdown()
+            } catch {
+                print("client shutdown failed in downloadobjectstreaming func")
+            }
+        }
+        
+        guard let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last else {
+            return
+        }
+        
+        let fileurl = directory.appendingPathComponent(key)
+        print(fileurl.absoluteString)
+        
+        if FileManager.default.fileExists(atPath: fileurl.path) {
+            print("file already exists")
+            do {
+                print("deleting file \(fileurl.path)")
+                try FileManager.default.removeItem(atPath: fileurl.path)
+            } catch {
+                print("unable to delete existing file")
+            }
+        }
+        
+        FileManager.default.createFile(atPath: fileurl.path, contents: nil)
+        let fileHandle = FileHandle(forWritingAtPath: fileurl.path)
+        fileHandle?.seekToEndOfFile()
+        
+        let s3 = S3(client: client)
+        let request = S3.GetObjectRequest(bucket: bucketName, key: key)
+        s3.getObjectStreaming(request){ bytebuffer, eventloop in
+//            print(bytebuffer)
+//            print("bbbbbbbbbbbbbbbbbbbbbbbbbb")
+            fileHandle?.write(bytebuffer.getData(at: 0, length: bytebuffer.capacity)!)
+            return eventloop.makeSucceededFuture(())
+        }.whenComplete{ response in
+            switch response {
+            case .failure(let error):
+                print(error)
+                print("error in streaming download func")
+                shutdown()
+            case .success(let output):
+                print(output)
+                print("success streaming")
+                shutdown()
+            }
+        }
+    }
+}
+
+func writeToFile(data: Data, fileName: String){
+    // get path of directory
+    guard let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last else {
+        return
+    }
+    // create file url
+    let fileurl =  directory.appendingPathComponent(fileName)
+    print(fileurl.absoluteString)
+// if file exists then write data
+    if FileManager.default.fileExists(atPath: fileurl.path) {
+        if let fileHandle = FileHandle(forWritingAtPath: fileurl.path) {
+            // seekToEndOfFile, writes data at the last of file(appends not override)
+            fileHandle.seekToEndOfFile()
+            fileHandle.write(data)
+            fileHandle.closeFile()
+        }
+        else {
+            print("Can't open file to write.")
+        }
+    }
+    else {
+        // if file does not exist write data for the first time
+        do{
+            try data.write(to: fileurl, options: .atomic)
+        }catch {
+            print("Unable to write in new file.")
+        }
+    }
+
 }
