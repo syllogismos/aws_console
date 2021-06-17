@@ -55,7 +55,8 @@ struct InputView: View {
 }
 
 struct InputImageView: View {
-    
+    @EnvironmentObject var s3Buckets: S3Buckets
+
     @Binding var image: NSImage?
     
     var body: some View {
@@ -79,15 +80,21 @@ struct InputImageView: View {
                     print("onDrop with identifier = \(identifier)")
                     if identifier == "public.url" || identifier == "public.file-url" {
                         item.loadItem(forTypeIdentifier: identifier, options: nil) { (urlData, error) in
-                            DispatchQueue.main.async {
-                                if let urlData = urlData as? Data {
-                                    let urll = NSURL(absoluteURLWithDataRepresentation: urlData, relativeTo: nil) as URL
-                                    if let img = NSImage(contentsOf: urll) {
-                                        self.image = img
-                                        print("got it")
-                                    }
-                                }
-                            }
+//                            DispatchQueue.main.async {
+//                                if let urlData = urlData as? Data {
+//                                    let urll = NSURL(absoluteURLWithDataRepresentation: urlData, relativeTo: nil) as URL
+//                                    if let img = NSImage(contentsOf: urll) {
+//                                        self.image = img
+//                                        print("got it")
+//                                    }
+//                                }
+//                            }
+                            let home = FileManager.default.homeDirectoryForCurrentUser
+
+                            let movPath = "Desktop/AWS Console.mov"
+
+                            let movUrl = home.appendingPathComponent(movPath)
+                            s3Buckets.uploadObjectStreaming(bucketName: "", key: "", fileURL: movUrl)
                         }
                     }
                 }

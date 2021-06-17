@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0431004C2679FFC7002E132E /* SotoS3FileTransfer in Frameworks */ = {isa = PBXBuildFile; productRef = 0431004B2679FFC7002E132E /* SotoS3FileTransfer */; };
 		046E75902662776F001730B2 /* InstanceTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046E758F2662776F001730B2 /* InstanceTypes.swift */; };
 		046E759226627A79001730B2 /* InstanceTypesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046E759126627A79001730B2 /* InstanceTypesView.swift */; };
 		046E75942664DBE8001730B2 /* InstanceTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046E75932664DBE8001730B2 /* InstanceTypeView.swift */; };
@@ -101,6 +102,7 @@
 			files = (
 				04F4C48C265E2EC8006A3DDE /* SotoPricing in Frameworks */,
 				04F4C48A265E2EC8006A3DDE /* SotoEC2 in Frameworks */,
+				0431004C2679FFC7002E132E /* SotoS3FileTransfer in Frameworks */,
 				04F4C488265E2EC8006A3DDE /* SotoEBS in Frameworks */,
 				04F4C486265E2EC8006A3DDE /* SotoS3 in Frameworks */,
 			);
@@ -256,6 +258,7 @@
 				04F4C487265E2EC8006A3DDE /* SotoEBS */,
 				04F4C489265E2EC8006A3DDE /* SotoEC2 */,
 				04F4C48B265E2EC8006A3DDE /* SotoPricing */,
+				0431004B2679FFC7002E132E /* SotoS3FileTransfer */,
 			);
 			productName = "AWS Console";
 			productReference = 04F4C44A265D324C006A3DDE /* AWS Console.app */;
@@ -330,6 +333,7 @@
 			mainGroup = 04F4C441265D324C006A3DDE;
 			packageReferences = (
 				04F4C484265E2EC8006A3DDE /* XCRemoteSwiftPackageReference "soto" */,
+				0431004A2679FFC7002E132E /* XCRemoteSwiftPackageReference "soto-s3-file-transfer" */,
 			);
 			productRefGroup = 04F4C44B265D324C006A3DDE /* Products */;
 			projectDirPath = "";
@@ -712,6 +716,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0431004A2679FFC7002E132E /* XCRemoteSwiftPackageReference "soto-s3-file-transfer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/soto-project/soto-s3-file-transfer";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.3.1;
+			};
+		};
 		04F4C484265E2EC8006A3DDE /* XCRemoteSwiftPackageReference "soto" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/soto-project/soto.git";
@@ -723,6 +735,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0431004B2679FFC7002E132E /* SotoS3FileTransfer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0431004A2679FFC7002E132E /* XCRemoteSwiftPackageReference "soto-s3-file-transfer" */;
+			productName = SotoS3FileTransfer;
+		};
 		04F4C485265E2EC8006A3DDE /* SotoS3 */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 04F4C484265E2EC8006A3DDE /* XCRemoteSwiftPackageReference "soto" */;

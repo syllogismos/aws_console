@@ -8,6 +8,8 @@
 import Foundation
 import SotoS3
 import Combine
+import NIOFoundationCompat
+import NIO
 
 class S3Buckets: ObservableObject{
     @Published var buckets = [S3.Bucket]()
@@ -257,6 +259,131 @@ class S3Buckets: ObservableObject{
                 shutdown()
             }
         }
+    }
+    
+    
+    func uploadObjectStreaming(bucketName: String, key: String, fileURL: URL){
+        print("stream upload the file \(fileURL.absoluteString) to the bucket \(bucketName), with key \(key)")
+        refreshKeys()
+        
+        
+        
+        if !FileManager.default.fileExists(atPath: fileURL.path) {
+            return
+        }
+        
+        let client = AWSClient(credentialProvider: .static(accessKeyId: self.accessKey, secretAccessKey: self.secretKey), httpClientProvider: .createNew)
+        
+        let shutdown = {
+            [client] in
+            do {
+                try client.syncShutdown()
+            } catch {
+                print("client shutdown failed in uploadObjectStreaming")
+            }
+        }
+        guard let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last else {
+            return
+        }
+
+        let movPath = "AWS Console.mov"
+
+        let movUrl = directory.appendingPathComponent(movPath)
+        let fileHandle = FileHandle(forReadingAtPath: movUrl.path)
+        do {
+            let handle = try FileHandle(forReadingFrom: movUrl)
+        } catch let error as NSError{
+            print("error at handle: \(error)")
+        }
+//        let niohandle: NIOFileHandle
+//        do {
+//            niohandle = try NIOFileHandle(path: movUrl.path)
+//        } catch let error as NSError {
+//            print("error at niohandle: \(error)")
+//        }
+        var fileSize: UInt64 = 0
+        do {
+            let attr = try FileManager.default.attributesOfItem(atPath: movUrl.path)
+            fileSize = attr[FileAttributeKey.size] as! UInt64
+        } catch let error as NSError {
+            print("error while getting size \(error)")
+        }
+        print(movUrl.path)
+        if !FileManager.default.fileExists(atPath: movUrl.path) {
+            print("file odesnt exist")
+        } else {
+            print("file exists")
+        }
+        do { try fileHandle?.seek(toOffset: 0)} catch {}
+        
+        var offset: UInt64 = 0
+        let size = 1024
+        let data = fileHandle?.readData(ofLength: size)
+        print(data as Any)
+        print("outside")
+        
+        let s3 = S3(client: client)
+        
+//        let payload = AWSPayload.stream(size: size){ eventloop in
+//            let data = fileHandle?.readData(ofLength: size)
+//            offset += UInt64(size)
+//            do {try fileHandle?.seek(toOffset: offset)} catch {}
+//            print(data as Any)
+//            let buffer = ByteBufferAllocator().buffer(data: data!)
+//            if data == nil{
+//                print("end")
+//                return eventloop.makeSucceededFuture(.end)
+//            }
+//            print("not end")
+//            return eventloop.makeSucceededFuture(.byteBuffer(buffer))
+//        }
+//        let request = S3.PutObjectRequest(body: payload, bucket: "anil-temp", key: "AWS Console.mov")
+        let threadpool = NIOThreadPool(numberOfThreads: 4)
+        threadpool.start()
+        let nonBlockFileIO = NonBlockingFileIO(threadPool: threadpool)
+        
+        
+        
+        do {
+            let niohandle = try NIOFileHandle(path: movUrl.path)
+            
+            let fileclose = {
+                [niohandle] in
+                do {
+                    try niohandle.close()
+                } catch {
+                    print("nio handle close")
+                }
+            }
+
+            let request = S3.PutObjectRequest(
+                body: .fileHandle(niohandle, size: Int(fileSize), fileIO: nonBlockFileIO),
+                bucket: "anil-temp",
+                key: "dragdrop"
+            )
+            s3.putObject(request)
+                .whenComplete{ response in
+                    print(response)
+                    switch response {
+                    case .failure(let error):
+                        print(error)
+                        print("error in streaming upload func")
+                        shutdown()
+                        fileclose()
+                    case .success(let output):
+                        print(output)
+                        print("success streaming upload")
+                        shutdown()
+                        fileclose()
+                    }
+                }
+        } catch let error as NSError {
+            print("error at niohandle: \(error)")
+        }
+        
+        
+        
+        
     }
 }
 
