@@ -94,7 +94,7 @@ struct InputImageView: View {
                             let movPath = "Desktop/AWS Console.mov"
 
                             let movUrl = home.appendingPathComponent(movPath)
-                            s3Buckets.uploadObjectStreaming(bucketName: "", key: "", fileURL: movUrl)
+                            s3Buckets.uploadObject(bucketName: "", key: "", fileURL: movUrl)
                         }
                     }
                 }

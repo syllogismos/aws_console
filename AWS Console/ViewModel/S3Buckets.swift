@@ -10,6 +10,7 @@ import SotoS3
 import Combine
 import NIOFoundationCompat
 import NIO
+import SotoS3FileTransfer
 
 class S3Buckets: ObservableObject{
     @Published var buckets = [S3.Bucket]()
@@ -117,6 +118,7 @@ class S3Buckets: ObservableObject{
                     print("Failure listObjectsv2")
                     DispatchQueue.main.async {
                         self.fetchingObjects = false
+                        self.objects = nil
                     }
                     shutdown()
                 //                    objects = nil
@@ -383,6 +385,53 @@ class S3Buckets: ObservableObject{
         
         
         
+        
+    }
+    
+    func uploadObject(bucketName: String, key: String, fileURL: URL){
+        print("uploading the file \(fileURL.absoluteString) to the bucket \(bucketName) with key \(key)")
+        
+        refreshKeys()
+        
+        if !FileManager.default.fileExists(atPath: fileURL.path) {
+            return
+        }
+        
+        let client = AWSClient(credentialProvider: .static(accessKeyId: self.accessKey, secretAccessKey: self.secretKey), httpClientProvider: .createNew)
+        
+        let s3 = S3(client: client)
+        let s3FileTransferManager = S3FileTransferManager(s3: s3, threadPoolProvider: .createNew)
+        
+        let shutdown = {
+            [client] in
+            do {
+                try client.syncShutdown()
+            } catch {
+                print("client shutdown failed in upload object")
+            }
+        }
+        
+        guard let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last else {
+            return
+        }
+        
+        let movPath = "AWS Console.mov"
+        let movURL = directory.appendingPathComponent(movPath)
+        
+        s3FileTransferManager.copy(
+            from: movURL.path,
+            to: S3File(url: "s3://anil-temp/temp")!
+        ).whenComplete{response in
+            print(response)
+            switch response {
+            case .failure(let error):
+                print(error)
+                shutdown()
+            case .success(let output):
+                print(output)
+                shutdown()
+            }
+        }
         
     }
 }
