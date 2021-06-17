@@ -442,9 +442,7 @@ class S3Buckets: ObservableObject{
     func uploadObject(bucketName: String, key: String, fileURL: URL){
         print("uploading the file \(fileURL.absoluteString) to the bucket \(bucketName) with key \(key)")
         let progressKey = "\(bucketName)/\(key)"
-        DispatchQueue.main.async {
-            self.uploadProgressFiles[progressKey] = 0.0
-        }
+        
         
         refreshKeys()
         
@@ -488,6 +486,9 @@ class S3Buckets: ObservableObject{
                 }
             }
         } else {
+            DispatchQueue.main.async {
+                self.uploadProgressFiles[progressKey] = 0.0
+            }
             s3FileTransferManager.copy(
                 from: fileURL.path,
                 to: S3File(url: "s3://\(bucketName)/\(key)")!,
