@@ -13,13 +13,22 @@ struct ContentView: View {
     @StateObject var s3Buckets = S3Buckets()
     @StateObject var spotPrice = SpotPrice()
     @StateObject var instanceTypes = InstanceTypes()
+    @EnvironmentObject var userPreferences: UserPreferences
     let timer = Timer.publish(every: 300, on: .main, in: .common).autoconnect()
     
     var body: some View {
         NavigationView{
             Sidebar()
             Text("No Sidebar Selection")
-            Text("No Message Selection")
+            if userPreferences.sidebarSelection == "Instances" {
+            Text("Select an instance")
+            } else if userPreferences.sidebarSelection == "Buckets" {
+                Text("Select a Bucket")
+            } else if userPreferences.sidebarSelection == "Spot Pricing" {
+                Text("Select an Instance Type to get pricing details")
+            } else {
+                Text("Select one item")
+            }
         }
         .environmentObject(instances)
 //        .environmentObject(userPreferences)

@@ -33,11 +33,18 @@ class UserPreferences: ObservableObject{
             UserDefaults.standard.set(os, forKey: "os")
         }
     }
+    
+    @Published var sidebarSelection: String? {
+        didSet {
+            UserDefaults.standard.set(sidebarSelection, forKey: "sidebarSelection")
+        }
+    }
         
     init() {
         self.accessKey = UserDefaults.standard.object(forKey: "accessKey") as? String ?? ""
         self.secretKey = UserDefaults.standard.object(forKey: "secretKey") as? String ?? ""
         self.region = UserDefaults.standard.object(forKey: "region") as? String ?? "us-east-1"
         self.os = UserDefaults.standard.object(forKey: "os") as? OperatingSystem ?? LinuxOS
+        self.sidebarSelection = UserDefaults.standard.object(forKey: "sidebarSelection") as? String ?? "Instances"
     }
 }

@@ -61,6 +61,7 @@ struct S3ObjectsView: View {
                 }
             }
             .frame(minWidth: 400)
+            Spacer()
             DragDropView(bucketName: bucketName)
             
         }.onAppear(perform: {
