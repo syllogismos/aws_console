@@ -11,6 +11,7 @@ import SotoS3
 struct S3ObjectsView: View {
     @EnvironmentObject var s3Buckets: S3Buckets
     @EnvironmentObject var spotPrice: SpotPrice
+    @Environment(\.openURL) var openURL
     var bucketName: String
     @ViewBuilder
     var body: some View {
@@ -31,8 +32,12 @@ struct S3ObjectsView: View {
                                             })
                                             .contextMenu{
                                                 Button(action: {s3Buckets.listObjects(bucketName: bucketName, prefix: "\(folder.prefix!)")}, label: {Text("Open")})
-                                                Button(action: {}, label: {Text("Download")})
-                                                Button(action: {}, label: {Text("Delete")})
+                                                Button(action: {s3Buckets.downloadFolder(bucketName: bucketName, key: folder.prefix!)}, label: {Text("Download")})
+//                                                Button(action: {}, label: {Text("Delete")})
+                                                Button("Open in S3 Console") {
+                                                    openURL(URL(string: "https://s3.console.aws.amazon.com/s3/buckets/\(bucketName)?prefix=\(folder.prefix!)")!)
+                                                }
+                                                
                                             }
                                     }
                                 }
@@ -44,6 +49,9 @@ struct S3ObjectsView: View {
                                             .contextMenu{
                                                 Button(action: {s3Buckets.downloadObjectStreaming(bucketName: bucketName, key: object.key!)}, label: {Text("Download")})
                                                 Button(action: {s3Buckets.deleteObject(bucketName: bucketName, key: object.key!)}, label: {Text("Delete")})
+                                                Button("Open in S3 Console") {
+                                                    openURL(URL(string: "https://s3.console.aws.amazon.com/s3/buckets/\(bucketName)?prefix=\(object.key!)")!)
+                                                }
                                             }
                                     }
                                 }
@@ -74,7 +82,25 @@ struct S3ObjectView: View {
         HStack{
             Text(name)
             Spacer()
-            Text(object.size!.description).font(.caption)
+//            Text(object.size!.description).font(.caption)
+            SizeView(size: object.size!).font(.caption)
+        }
+    }
+}
+
+struct SizeView: View {
+    var size: Int64
+    var body: some View{
+        if size < 1024 {
+            Text("\(size) B")
+        } else if size < 1024*1024 {
+            Text("\(size/1024) kB")
+        } else if size < 1024*1024*1024 {
+            Text("\(size/(1024*1024)) MB")
+        } else if size < 1024*1024*1024*1024 {
+            Text("\(size/(1024*1024*1024)) GB")
+        } else {
+            Text("\(size) B")
         }
     }
 }

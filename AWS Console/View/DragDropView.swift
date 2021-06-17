@@ -17,7 +17,7 @@ struct DragDropView: View {
         //                .onTapGesture {
         //                    listObjects()
         //                }
-        InputView(image: $image)
+        InputView(image: $image, bucketName: self.bucketName)
             .padding()
         //        }
     }
@@ -32,6 +32,8 @@ struct DragDropView: View {
 struct InputView: View {
     
     @Binding var image: NSImage?
+    var bucketName: String
+    @EnvironmentObject var s3Buckets: S3Buckets
     
     var body: some View {
         VStack(spacing: 16) {
@@ -41,7 +43,11 @@ struct InputView: View {
             //                    Text("From Finder")
             //                }
             //            }
-            InputImageView(image: self.$image)
+            InputImageView(image: self.$image, bucketName: self.bucketName)
+            ForEach(Array(s3Buckets.uploadProgressFiles.keys), id: \.self){key in
+                ProgressView(key, value: s3Buckets.uploadProgressFiles[key], total: 1)
+            }
+//            ProgressView("Upload", value: s3Buckets.uploadProgress, total: 1)
         }
     }
     
@@ -58,6 +64,7 @@ struct InputImageView: View {
     @EnvironmentObject var s3Buckets: S3Buckets
 
     @Binding var image: NSImage?
+    var bucketName: String
     
     var body: some View {
         ZStack {
@@ -66,7 +73,7 @@ struct InputImageView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
             } else {
-                Text("Drag and drop image file")
+                Text("Drop files/folders here to upload to S3")
                     .frame(width: 320)
             }
         }
@@ -89,12 +96,19 @@ struct InputImageView: View {
 //                                    }
 //                                }
 //                            }
-                            let home = FileManager.default.homeDirectoryForCurrentUser
+//                            let home = FileManager.default.homeDirectoryForCurrentUser
+//
+//                            let movPath = "Desktop/AWS Console.mov"
+//
+//                            let movUrl = home.appendingPathComponent(movPath)
+                            let prefix = s3Buckets.prefixes.last
+                            if let urlData = urlData as? Data {
+                                let urll = NSURL(absoluteURLWithDataRepresentation: urlData, relativeTo: nil) as URL
+                                let key = prefix != "" ? "\(prefix ?? "")\(urll.lastPathComponent)" : urll.lastPathComponent
+                                
 
-                            let movPath = "Desktop/AWS Console.mov"
-
-                            let movUrl = home.appendingPathComponent(movPath)
-                            s3Buckets.uploadObject(bucketName: "", key: "", fileURL: movUrl)
+                                s3Buckets.uploadObject(bucketName: self.bucketName, key: key, fileURL: urll)
+                            }
                         }
                     }
                 }
