@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0431004C2679FFC7002E132E /* SotoS3FileTransfer in Frameworks */ = {isa = PBXBuildFile; productRef = 0431004B2679FFC7002E132E /* SotoS3FileTransfer */; };
+		04310050267BD407002E132E /* NotificationsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0431004F267BD407002E132E /* NotificationsHelper.swift */; };
+		046E0D2B269EB7590056536F /* VolumePricingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046E0D2A269EB7590056536F /* VolumePricingHelper.swift */; };
 		046E75902662776F001730B2 /* InstanceTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046E758F2662776F001730B2 /* InstanceTypes.swift */; };
 		046E759226627A79001730B2 /* InstanceTypesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046E759126627A79001730B2 /* InstanceTypesView.swift */; };
 		046E75942664DBE8001730B2 /* InstanceTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046E75932664DBE8001730B2 /* InstanceTypeView.swift */; };
@@ -59,6 +61,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0431004F267BD407002E132E /* NotificationsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsHelper.swift; sourceTree = "<group>"; };
+		046E0D2A269EB7590056536F /* VolumePricingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumePricingHelper.swift; sourceTree = "<group>"; };
 		046E758F2662776F001730B2 /* InstanceTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstanceTypes.swift; sourceTree = "<group>"; };
 		046E759126627A79001730B2 /* InstanceTypesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstanceTypesView.swift; sourceTree = "<group>"; };
 		046E75932664DBE8001730B2 /* InstanceTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstanceTypeView.swift; sourceTree = "<group>"; };
@@ -129,6 +133,8 @@
 			isa = PBXGroup;
 			children = (
 				046E75962664ED28001730B2 /* RegionsHelper.swift */,
+				0431004F267BD407002E132E /* NotificationsHelper.swift */,
+				046E0D2A269EB7590056536F /* VolumePricingHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -377,6 +383,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				046E0D2B269EB7590056536F /* VolumePricingHelper.swift in Sources */,
 				049F941D266200E0003F3235 /* S3ObjectsView.swift in Sources */,
 				049F941B265FC5F9003F3235 /* DragDropView.swift in Sources */,
 				04F4C494265E57FF006A3DDE /* ClickToCopy.swift in Sources */,
@@ -391,6 +398,7 @@
 				046E75902662776F001730B2 /* InstanceTypes.swift in Sources */,
 				04F4C47D265D3314006A3DDE /* Sidebar.swift in Sources */,
 				049F9419265FC43F003F3235 /* BucketsView.swift in Sources */,
+				04310050267BD407002E132E /* NotificationsHelper.swift in Sources */,
 				046E75942664DBE8001730B2 /* InstanceTypeView.swift in Sources */,
 				046E759B26654C6E001730B2 /* OSModel.swift in Sources */,
 				04F4C492265E3FFF006A3DDE /* InstanceView.swift in Sources */,
@@ -556,9 +564,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "AWS Console/AWS_Console.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"AWS Console/Preview Content\"";
+				DEVELOPMENT_TEAM = 24M2C25H4J;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "AWS Console/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -566,6 +577,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "Anil-Karaka.AWS-Console";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -578,9 +590,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "AWS Console/AWS_Console.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"AWS Console/Preview Content\"";
+				DEVELOPMENT_TEAM = 24M2C25H4J;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "AWS Console/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -588,6 +603,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "Anil-Karaka.AWS-Console";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

@@ -14,10 +14,12 @@ struct BucketsView: View {
     
     var body: some View {
         VStack(spacing: 0.0) {
-            List(self.s3Buckets.buckets, id: \.name){bucket in
-                NavigationLink(
-                    destination: S3ObjectsView(bucketName: bucket.name ?? ""), label: {Text(bucket.name ?? "")}
-                )
+            List{
+                ForEach(self.s3Buckets.buckets, id: \.name){bucket in
+                    NavigationLink(
+                        destination: S3ObjectsView(bucketName: bucket.name ?? ""), label: {Text(bucket.name ?? "")}
+                    )
+                }
             }
             .navigationTitle("S3 Buckets: \(s3Buckets.currentBucket)/\(s3Buckets.prefixes.last!)")
             .toolbar{

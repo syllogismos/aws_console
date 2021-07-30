@@ -12,6 +12,7 @@ import Combine
 class EC2Instances: ObservableObject {
     @Published var instances = [EC2.Instance]()
     @Published var searchString = ""
+    @Published var instanceVolumes = [EC2.Volume]()
     
     private var subscription: AnyCancellable?
     private var accessKey: String
@@ -75,6 +76,44 @@ class EC2Instances: ObservableObject {
         return
     }
     
+    func describeVolumesOfInstance(instanceId: String) {
+        print(self.region)
+        print("rrrrrrrrrrrrrrrrrrrrrrrrrrrr")
+        refreshKeys()
+        let client = AWSClient(credentialProvider: .static(accessKeyId: self.accessKey, secretAccessKey: self.secretKey), httpClientProvider: .createNew)
+        
+        let shutdown = {
+            [client] in
+            do {
+                try client.syncShutdown()
+            } catch {
+                print("client shutdown error deinit describevolumes")
+            }
+        }
+        
+        let ec2 = EC2(client: client, region: SotoCore.Region.init(awsRegionName: self.region))
+        
+        let request = EC2.DescribeVolumesRequest(filters: [EC2.Filter(name: "attachment.instance-id", values: [instanceId])])
+        ec2.describeVolumes(request)
+            .whenComplete{ response in
+                switch response {
+                case .failure(let error):
+                    print(error)
+                    print("Failure describe volumes")
+                    self.instanceVolumes = []
+                    shutdown()
+                case .success(let output):
+                    print(output)
+                    print("asfafafafafa")
+                    DispatchQueue.main.async {
+                        self.instanceVolumes = output.volumes ?? []
+                    }
+                    shutdown()
+                }
+            }
+        
+    }
+    
     func stopInstances(instanceIds: [String]) {
         refreshKeys()
         let client = AWSClient(credentialProvider: .static(accessKeyId: self.accessKey, secretAccessKey: self.secretKey), httpClientProvider: .createNew)
@@ -89,7 +128,7 @@ class EC2Instances: ObservableObject {
         }
         
         
-        let ec2 = EC2(client: client, region: .useast1)
+        let ec2 = EC2(client: client, region: SotoCore.Region.init(awsRegionName: self.region))
         let request = EC2.StopInstancesRequest(instanceIds: instanceIds)
         ec2.stopInstances(request)
             .whenComplete{ response in
@@ -120,7 +159,7 @@ class EC2Instances: ObservableObject {
         }
         
         
-        let ec2 = EC2(client: client, region: .useast1)
+        let ec2 = EC2(client: client, region: SotoCore.Region.init(awsRegionName: self.region))
         let request = EC2.TerminateInstancesRequest(instanceIds: instanceIds)
         ec2.terminateInstances(request)
             .whenComplete{ response in
@@ -151,7 +190,7 @@ class EC2Instances: ObservableObject {
         }
         
         
-        let ec2 = EC2(client: client, region: .useast1)
+        let ec2 = EC2(client: client, region: SotoCore.Region.init(awsRegionName: self.region))
         let request = EC2.StartInstancesRequest(instanceIds: instanceIds)
         ec2.startInstances(request)
             .whenComplete{ response in

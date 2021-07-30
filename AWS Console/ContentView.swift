@@ -26,10 +26,9 @@ struct ContentView: View {
                 Text("Select a Bucket")
             } else if userPreferences.sidebarSelection == "Spot Pricing" {
                 Text("Select an Instance Type to get pricing details")
-            } else {
-                Text("Select one item")
-            }
-        }
+//            } else if userPreferences.sidebarSelection == "Settings" {
+//                Text("None").frame(width: 0)
+            }        }
         .environmentObject(instances)
 //        .environmentObject(userPreferences)
         .environmentObject(s3Buckets)

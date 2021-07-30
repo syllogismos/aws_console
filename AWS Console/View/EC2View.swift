@@ -24,6 +24,7 @@ struct EC2View: View {
                     label: {
                         Text(instance.instanceId ?? "")
                     })
+//                    .listrow
             }
             .navigationTitle("EC2 Instances")
             .toolbar{

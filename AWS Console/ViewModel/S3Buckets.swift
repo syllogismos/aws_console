@@ -479,10 +479,13 @@ class S3Buckets: ObservableObject{
                 switch response {
                 case .failure(let error):
                     print(error)
+                    sendUserNotification(title: "Upload failed", subtitle: "\(key) didn't get uploaded to \(bucketName)")
                     shutdown()
                 case .success(let output):
                     print(output)
+                    sendUserNotification(title: "Upload success", subtitle: "\(key) folder got uploaded to \(bucketName)")
                     shutdown()
+
                 }
             }
         } else {
@@ -506,10 +509,16 @@ class S3Buckets: ObservableObject{
                 switch response {
                 case .failure(let error):
                     print(error)
+                    sendUserNotification(title: "Upload failed", subtitle: "\(key) didn't get uploaded to \(bucketName)")
                     shutdown()
+
                 case .success(let output):
                     print(output)
+                    print("success upload")
+                    sendUserNotification(title: "Upload success", subtitle: "\(key) object got uploaded to \(bucketName)")
                     shutdown()
+
+                    
                 }
             }
         }

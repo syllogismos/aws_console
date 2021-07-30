@@ -14,7 +14,7 @@ struct Sidebar: View {
     @EnvironmentObject var userPreferences: UserPreferences
     @EnvironmentObject var s3Buckets: S3Buckets
     @EnvironmentObject var instances: EC2Instances
-
+    
     var body: some View {
         List{
             //            Text("EC2")
@@ -26,35 +26,35 @@ struct Sidebar: View {
                     tag: "Instances",
                     selection: $userPreferences.sidebarSelection,
                     label: {
-                        Label("Instances", systemImage: "desktopcomputer")
-                    })
-//                NavigationLink(
-//                    destination: EC2View(),
-//                    isActive: $isDefaultItemActive,
-//                    label: {
-//                        Label("Instances", systemImage: "desktopcomputer")
-//                    })
+                    Label("Instances", systemImage: "desktopcomputer")
+                })
+                //                NavigationLink(
+                //                    destination: EC2View(),
+                //                    isActive: $isDefaultItemActive,
+                //                    label: {
+                //                        Label("Instances", systemImage: "desktopcomputer")
+                //                    })
                 NavigationLink(
                     destination: Text("EBS"),
                     tag: "EBS",
                     selection: $userPreferences.sidebarSelection,
                     label: {
-                        Label("EBS", systemImage: "externaldrive")
-                    })
+                    Label("EBS", systemImage: "externaldrive")
+                })
                 NavigationLink(
                     destination: Text("AMIs"),
                     tag: "AMIs",
                     selection: $userPreferences.sidebarSelection,
                     label: {
-                        Label("AMIs", systemImage: "photo")
-                    })
+                    Label("AMIs", systemImage: "photo")
+                })
                 NavigationLink(
                     destination: InstanceTypesView(generalPurpose: instanceTypes.instanceTypes.filter({$0.starts(with: "a") || $0.starts(with: "m") || $0.starts(with: "t")}).sorted(), computeOptimized: instanceTypes.instanceTypes.filter({$0.starts(with: "c")}).sorted(), acceleratedCompute: instanceTypes.instanceTypes.filter({$0.starts(with: "f") || $0.starts(with: "g") || $0.starts(with: "i") || $0.starts(with: "p")}).sorted(), memoryOptimized: instanceTypes.instanceTypes.filter({$0.starts(with: "r") || $0.starts(with: "x") || $0.starts(with: "z")}).sorted(), storageOptimized: instanceTypes.instanceTypes.filter({$0.starts(with: "d") || $0.starts(with: "h") || $0.starts(with: "i")}).sorted()).environmentObject(instanceTypes).environmentObject(userPreferences),
                     tag: "Spot Pricing",
                     selection: $userPreferences.sidebarSelection,
                     label: {
-                        Label("Spot Pricing", systemImage: "camera.metering.spot")
-                    })
+                    Label("Spot Pricing", systemImage: "camera.metering.spot")
+                })
             }
             //            Text("S3")
             //                .font(.caption)
@@ -65,15 +65,17 @@ struct Sidebar: View {
                     tag: "Buckets",
                     selection: $userPreferences.sidebarSelection,
                     label: {
-                        Label("Buckets", systemImage: "tray")
-                    })
+                    Label("Buckets", systemImage: "tray")
+                })
             }
             Spacer()
-            //            NavigationLink(
-            //                destination: SettingsView(),
-            //                label: {
-            //                    Label("Settings", systemImage: "gear")
-            //                })
+            NavigationLink(
+                destination: SettingsView(),
+                tag: "Settings",
+                selection: $userPreferences.sidebarSelection,
+                label: {
+                Label("Settings", systemImage: "gear")
+            })
         }
         .listStyle((SidebarListStyle()))
         .toolbar(content: {

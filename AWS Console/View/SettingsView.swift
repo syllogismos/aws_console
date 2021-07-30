@@ -7,6 +7,8 @@
 
 import SwiftUI
 import SotoEC2
+import UserNotifications
+
 
 struct SettingsView: View {
     var body: some View {
@@ -35,9 +37,9 @@ struct KeysView: View {
     var body: some View{
         VStack{
             
-//            Text("Preferences")
-//                .font(.title)
-//                .multilineTextAlignment(.leading)
+            //            Text("Preferences")
+            //                .font(.title)
+            //                .multilineTextAlignment(.leading)
             
             HStack{
                 Text("Access Key:")
@@ -59,7 +61,7 @@ struct KeysView: View {
                 Toggle("Hide Keys", isOn: $hideKeys)
                 Spacer()
             }
-
+            
             HStack {
                 Picker(selection: $userPreferences.region, label: Text("Default Region:")) {
                     ForEach(regions, id: \.self) { region in Text(region)
@@ -72,12 +74,18 @@ struct KeysView: View {
                 Button{print("done button clicked")} label:{
                     Text("Done")
                 }
+                Button{enableNotifications()} label: {
+                    Text("Enable Notifications")
+                }
+                Button{sendUserNotification(title: "Feed the dog", subtitle: "Dog is hungry")} label: {
+                    Text("Test Notification")
+                }
                 Spacer()
-
+                
             }
             Spacer()
         }
-//        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        //        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding()
     }
 }
@@ -130,3 +138,12 @@ func checkAWSClient(accessKey: String, secretKey: String){
         }
 }
 
+func enableNotifications() {
+    UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+        if success {
+            print("All set!")
+        } else if let error = error {
+            print(error.localizedDescription)
+        }
+    }
+}
