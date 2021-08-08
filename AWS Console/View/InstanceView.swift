@@ -74,26 +74,77 @@ struct InstanceView: View {
                     
                     Spacer()
                 }.padding()
+//                HStack{
+//                    VStack(alignment: .leading) {
+//                        Text("Block Devices").font(.title3).foregroundColor(.accentColor)
+//                        HStack{
+//                            VStack(alignment: .leading){
+//                                Text("Device Name").font(.caption)
+//                                ForEach(self.instance.blockDeviceMappings ?? [], id: \.deviceName){device in
+//                                    ClickToCopy(title: "", text: device.deviceName!)
+//                                }
+//                            }
+//                            VStack(alignment: .leading){
+//                                Text("Volume Id").font(.caption)
+//                                ForEach(self.instance.blockDeviceMappings ?? [], id: \.deviceName){device in
+//                                    ClickToCopy(title: "", text: device.ebs?.volumeId ?? "")
+//                                }
+//                            }
+//                            VStack(alignment: .leading){
+//                                Text("Delete on Termination").font(.caption)
+//                                ForEach(self.instance.blockDeviceMappings ?? [], id: \.deviceName){device in
+//                                    Text(device.ebs?.deleteOnTermination?.description ?? "")
+//                                }
+//                            }
+//                        }
+//                    }.padding().border(Color.secondary)
+//                    Spacer()
+//                }.padding()
+//                Spacer()
                 HStack{
                     VStack(alignment: .leading) {
-                        Text("Block Devices").font(.title3).foregroundColor(.accentColor)
+                        Text("Volumes").font(.title3).foregroundColor(.accentColor)
                         HStack{
                             VStack(alignment: .leading){
                                 Text("Device Name").font(.caption)
-                                ForEach(self.instance.blockDeviceMappings ?? [], id: \.deviceName){device in
-                                    ClickToCopy(title: "", text: device.deviceName!)
+                                ForEach(ec2Instances.instanceVolumes , id: \.volumeId){volume in
+                                    Text((volume.attachments?.first!.device!)!)
                                 }
                             }
                             VStack(alignment: .leading){
                                 Text("Volume Id").font(.caption)
-                                ForEach(self.instance.blockDeviceMappings ?? [], id: \.deviceName){device in
-                                    ClickToCopy(title: "", text: device.ebs?.volumeId ?? "")
+                                ForEach(ec2Instances.instanceVolumes, id: \.volumeId){volume in
+                                    ClickToCopy(title: "", text: volume.volumeId!)
+                                }
+                            }
+                            VStack(alignment: .leading){
+                                Text("Type").font(.caption)
+                                ForEach(ec2Instances.instanceVolumes, id: \.volumeId){volume in
+                                    Text(volume.volumeType!.rawValue)
+                                }
+                            }
+                            VStack(alignment: .leading){
+                                Text("Size").font(.caption)
+                                ForEach(ec2Instances.instanceVolumes, id: \.volumeId){volume in
+                                    Text(volume.size!.description)
+                                }
+                            }
+                            VStack(alignment: .leading){
+                                Text("IOPS").font(.caption)
+                                ForEach(ec2Instances.instanceVolumes, id: \.volumeId){volume in
+                                    Text(volume.iops!.description)
                                 }
                             }
                             VStack(alignment: .leading){
                                 Text("Delete on Termination").font(.caption)
-                                ForEach(self.instance.blockDeviceMappings ?? [], id: \.deviceName){device in
-                                    Text(device.ebs?.deleteOnTermination?.description ?? "")
+                                ForEach(ec2Instances.instanceVolumes, id: \.volumeId){volume in
+                                    Text(volume.attachments?.first!.deleteOnTermination?.description ?? "")
+                                }
+                            }
+                            VStack(alignment: .leading){
+                                Text("Price per hour").font(.caption)
+                                ForEach(ec2Instances.instanceVolumes, id: \.volumeId){volume in
+                                    Text(ec2Instances.getVolumeStoragePrice(volume: volume).description)
                                 }
                             }
                         }

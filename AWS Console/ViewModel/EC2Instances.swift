@@ -35,6 +35,23 @@ class EC2Instances: ObservableObject {
 //        print(self.secretKey)
     }
     
+    func getVolumeStoragePrice(volume: EC2.Volume) -> Double {
+        print(self.region)
+        print("volume pricing region")
+        let size = Double(volume.size ?? 0)
+        let gb_month = storagePricing[self.region]![volume.volumeType!.rawValue] ?? 0.0
+        
+        //$0.08 per GB-month * 2000 GB * 43,200 seconds / (86,400 seconds/day * 30 day-month)
+        // above is the formula for 12 hours * 3600 = 43200 seconds of usage
+        // approx forumla for 1 hour = gb-month * size * 3600 /(86400 * 30)
+        let price_per_hour = size * gb_month * 3600 / (86400 * 30)
+        
+        // round to 4 decimal places
+        let rounded_price = Double(round(10000*price_per_hour)/10000)
+
+        return rounded_price
+    }
+
     func getEC2Instances() {
         print("Getting EC2 Instances")
         refreshKeys()

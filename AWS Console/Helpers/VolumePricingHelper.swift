@@ -31,9 +31,6 @@ let storagePricing = [
     "us-east-2": ["gp3": 0.08, "gp2": 0.10, "io2": 0.125, "io1": 0.125, "st1": 0.045, "sc1": 0.015],
     "us-west-1": ["gp3": 0.096, "gp2": 0.12, "io2": 0.138, "io1": 0.138, "st1": 0.054, "sc1": 0.018],
     "us-west-2": ["gp3": 0.08, "gp2": 0.10, "io2": 0.125, "io1": 0.125, "st1": 0.045, "sc1": 0.015],
-] as [String : Any]
+] as [String : [String: Double]]
 
-//
-//func getVolumeStoragePrice(volume: EC2.Volume, region: String) -> Double {
-//
-//}
+
