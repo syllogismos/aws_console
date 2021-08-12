@@ -25,7 +25,7 @@ struct SettingsView: View {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView()
-        KeysView()
+        KeysView().environmentObject(UserPreferences())
     }
 }
 
@@ -67,13 +67,11 @@ struct KeysView: View {
                     ForEach(regions, id: \.self) { region in Text(region)
                     }
                 }
+                .frame(minWidth: 150, maxWidth: 200)
                 .clipped()
-                Button{checkAWSClient(accessKey: userPreferences.accessKey, secretKey: userPreferences.secretKey)} label: {
-                    Text("Check AWS Credentials")
-                }
-                Button{print("done button clicked")} label:{
-                    Text("Done")
-                }
+//                Button{checkAWSClient(accessKey: userPreferences.accessKey, secretKey: userPreferences.secretKey)} label: {
+//                    Text("Check AWS Credentials")
+//                }
                 Button{enableNotifications()} label: {
                     Text("Enable Notifications")
                 }
