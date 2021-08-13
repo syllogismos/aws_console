@@ -13,6 +13,8 @@ struct InstanceView: View {
     
     @EnvironmentObject var ec2Instances: EC2Instances
     @EnvironmentObject var instanceTypes: InstanceTypes
+    @EnvironmentObject var userPref: UserPreferences
+    @Environment(\.openURL) var openURL
     
     @ViewBuilder
     var body: some View {
@@ -29,6 +31,9 @@ struct InstanceView: View {
                     }.padding().border(Color.secondary)
                     Spacer()
                     VStack(alignment: .center){
+                        Button(action: {openURL(URL(string: "https://console.aws.amazon.com/ec2/v2/home?region=\(userPref.region)#InstanceDetails:instanceId=\(self.instance.instanceId ?? "")")!)}){
+                            Label("Open in Browser", systemImage: "network")
+                        }
                         Button(action: {ec2Instances.startInstances(instanceIds: [self.instance.instanceId!])}) {
                             Label("Start", systemImage: "play.circle")
                         }.foregroundColor(Color.green)
@@ -37,8 +42,8 @@ struct InstanceView: View {
                         }.foregroundColor(.yellow)
                         Button(action: {ec2Instances.terminateInstances(instanceIds: [self.instance.instanceId!])}) {
                             Label("Terminate", systemImage: "stop.circle")
-                        }.foregroundColor(.red)                    }
-                    
+                        }.foregroundColor(.red)
+                    }
                 }
                 .padding()
                 HStack {
@@ -118,6 +123,7 @@ struct InstanceSummary: View {
                 ClickToCopy(title: "Instance Type", text: self.instance.instanceType!.rawValue)
                 ClickToCopy(title: "Launch Time", text: self.instance.launchTime!.description)
                 ClickToCopy(title: "State", text: self.instance.state?.name?.rawValue ?? "", clickToCopy: false)
+                    .foregroundColor(instance.state?.name?.rawValue ?? "" == "running" ? Color.green : Color.primary)
                 ClickToCopy(title: "Availability Zone", text: self.instance.placement?.availabilityZone ?? "")
                 ClickToCopy(title: "Public IP", text: self.instance.publicIpAddress ?? "-")
                 ClickToCopy(title: "Public DNS", text: self.instance.publicDnsName ?? "-")

@@ -24,6 +24,7 @@
 		049F941D266200E0003F3235 /* S3ObjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049F941C266200E0003F3235 /* S3ObjectsView.swift */; };
 		049F941F26621F22003F3235 /* SpotPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049F941E26621F22003F3235 /* SpotPrice.swift */; };
 		04F4451426C6203F0008F5A4 /* AMIViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4451326C6203F0008F5A4 /* AMIViewModel.swift */; };
+		04F4451626C6ECD70008F5A4 /* InstancesHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4451526C6ECD70008F5A4 /* InstancesHelper.swift */; };
 		04F4C44E265D324C006A3DDE /* AWS_ConsoleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4C44D265D324C006A3DDE /* AWS_ConsoleApp.swift */; };
 		04F4C450265D324C006A3DDE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4C44F265D324C006A3DDE /* ContentView.swift */; };
 		04F4C455265D3250006A3DDE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04F4C454265D3250006A3DDE /* Preview Assets.xcassets */; };
@@ -77,6 +78,7 @@
 		049F941C266200E0003F3235 /* S3ObjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3ObjectsView.swift; sourceTree = "<group>"; };
 		049F941E26621F22003F3235 /* SpotPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotPrice.swift; sourceTree = "<group>"; };
 		04F4451326C6203F0008F5A4 /* AMIViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AMIViewModel.swift; sourceTree = "<group>"; };
+		04F4451526C6ECD70008F5A4 /* InstancesHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstancesHelper.swift; sourceTree = "<group>"; };
 		04F4C44A265D324C006A3DDE /* AWS Console.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AWS Console.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		04F4C44D265D324C006A3DDE /* AWS_ConsoleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWS_ConsoleApp.swift; sourceTree = "<group>"; };
 		04F4C44F265D324C006A3DDE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				046E75962664ED28001730B2 /* RegionsHelper.swift */,
 				0431004F267BD407002E132E /* NotificationsHelper.swift */,
 				046E0D2A269EB7590056536F /* VolumePricingHelper.swift */,
+				04F4451526C6ECD70008F5A4 /* InstancesHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -392,6 +395,7 @@
 				04F4C494265E57FF006A3DDE /* ClickToCopy.swift in Sources */,
 				049F941F26621F22003F3235 /* SpotPrice.swift in Sources */,
 				04F4C496265E663C006A3DDE /* Constants.swift in Sources */,
+				04F4451626C6ECD70008F5A4 /* InstancesHelper.swift in Sources */,
 				04F4C450265D324C006A3DDE /* ContentView.swift in Sources */,
 				04F4C48E265E33F6006A3DDE /* UserPreferences.swift in Sources */,
 				046E75972664ED28001730B2 /* RegionsHelper.swift in Sources */,

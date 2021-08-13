@@ -22,7 +22,8 @@ struct EC2View: View {
                 NavigationLink(
                     destination: InstanceView(instance: instance),
                     label: {
-                        Text(instance.instanceId ?? "")
+                        Text(getNameOfInstanceFromTags(instance: instance))
+                            .foregroundColor(instance.state?.name?.rawValue ?? "" == "running" ? Color.green : Color.primary)
                     })
 //                    .listrow
             }
