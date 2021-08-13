@@ -34,9 +34,9 @@ struct S3ObjectsView: View {
                                                 Button(action: {s3Buckets.listObjects(bucketName: bucketName, prefix: "\(folder.prefix!)")}, label: {Text("Open")})
                                                 Button(action: {s3Buckets.downloadFolder(bucketName: bucketName, key: folder.prefix!)}, label: {Text("Download")})
 //                                                Button(action: {}, label: {Text("Delete")})
-                                                Button("Open in S3 Console") {
-                                                    openURL(URL(string: "https://s3.console.aws.amazon.com/s3/buckets/\(bucketName)?prefix=\(folder.prefix!)")!)
-                                                }
+//                                                Button("Open in S3 Console") {
+//                                                    openURL(URL(string: "https://s3.console.aws.amazon.com/s3/buckets/\(bucketName)?prefix=\(folder.prefix!)")!)
+//                                                }
                                                 
                                             }
                                     }

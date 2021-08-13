@@ -25,19 +25,19 @@ struct InstanceView: View {
                     Spacer()
                     VStack(alignment: .leading){
                         Text("Current Price").font(.title3).foregroundColor(.accentColor)
-                        Text("$0.12 per hour")
+                        Text("$\((self.instance.state?.name?.rawValue == "running" && self.instanceTypes.pricingDetails != nil ? Double(self.instanceTypes.pricingDetails!.terms.OnDemand.values.first?.priceDimensions.values.first?.pricePerUnit.USD ?? "-")! : 0) + self.ec2Instances.volumesPrice) per hour")
                     }.padding().border(Color.secondary)
                     Spacer()
                     VStack(alignment: .center){
                         Button(action: {ec2Instances.startInstances(instanceIds: [self.instance.instanceId!])}) {
                             Label("Start", systemImage: "play.circle")
-                        }.opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/).background(Color.green)
+                        }.foregroundColor(Color.green)
                         Button(action: {ec2Instances.stopInstances(instanceIds: [self.instance.instanceId!])}) {
                             Label("Stop", systemImage: "pause.circle")
-                        }.background(Color.yellow).opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/)
+                        }.foregroundColor(.yellow)
                         Button(action: {ec2Instances.terminateInstances(instanceIds: [self.instance.instanceId!])}) {
                             Label("Terminate", systemImage: "stop.circle")
-                        }.background(Color.red).opacity(0.8)                    }
+                        }.foregroundColor(.red)                    }
                     
                 }
                 .padding()

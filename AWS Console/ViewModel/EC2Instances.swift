@@ -13,6 +13,7 @@ class EC2Instances: ObservableObject {
     @Published var instances = [EC2.Instance]()
     @Published var searchString = ""
     @Published var instanceVolumes = [EC2.Volume]()
+    @Published var volumesPrice: Double = 0.0
     
     private var subscription: AnyCancellable?
     private var accessKey: String
@@ -124,6 +125,10 @@ class EC2Instances: ObservableObject {
                     print("asfafafafafa")
                     DispatchQueue.main.async {
                         self.instanceVolumes = output.volumes ?? []
+                        let volumePriceArray = self.instanceVolumes.map {(volume) -> Double in self.getVolumeStoragePrice(volume: volume)}
+                        print(volumePriceArray)
+                        self.volumesPrice = volumePriceArray.reduce(0, +)
+                        print(self.volumesPrice)
                     }
                     shutdown()
                 }

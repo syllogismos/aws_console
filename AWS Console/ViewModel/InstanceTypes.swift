@@ -188,7 +188,7 @@ class InstanceTypes: ObservableObject{
                         print("pricing request success")
                         let pricingDetailsString = output.priceList?.first
                         if pricingDetailsString != nil{
-//                            print(pricingDetailsString!)
+                            print(pricingDetailsString!)
                             self.pricingDetails = try! JSONDecoder().decode(PriceDetails.self, from: pricingDetailsString!.data(using: .utf8)!)
 //                            print(self.pricingDetails!)
                             print(self.pricingDetails?.terms.OnDemand.values.first?.priceDimensions.values.first?.pricePerUnit.USD as Any)
