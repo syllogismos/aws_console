@@ -34,20 +34,20 @@ struct Sidebar: View {
                 //                    label: {
                 //                        Label("Instances", systemImage: "desktopcomputer")
                 //                    })
-                NavigationLink(
-                    destination: Text("EBS"),
-                    tag: "EBS",
-                    selection: $userPreferences.sidebarSelection,
-                    label: {
-                    Label("EBS", systemImage: "externaldrive")
-                })
-                NavigationLink(
-                    destination: Text("AMIs"),
-                    tag: "AMIs",
-                    selection: $userPreferences.sidebarSelection,
-                    label: {
-                    Label("AMIs", systemImage: "photo")
-                })
+//                NavigationLink(
+//                    destination: Text("EBS"),
+//                    tag: "EBS",
+//                    selection: $userPreferences.sidebarSelection,
+//                    label: {
+//                    Label("EBS", systemImage: "externaldrive")
+//                })
+//                NavigationLink(
+//                    destination: Text("AMIs"),
+//                    tag: "AMIs",
+//                    selection: $userPreferences.sidebarSelection,
+//                    label: {
+//                    Label("AMIs", systemImage: "photo")
+//                })
                 NavigationLink(
                     destination: InstanceTypesView(generalPurpose: instanceTypes.instanceTypes.filter({$0.starts(with: "a") || $0.starts(with: "m") || $0.starts(with: "t")}).sorted(), computeOptimized: instanceTypes.instanceTypes.filter({$0.starts(with: "c")}).sorted(), acceleratedCompute: instanceTypes.instanceTypes.filter({$0.starts(with: "f") || $0.starts(with: "g") || $0.starts(with: "i") || $0.starts(with: "p")}).sorted(), memoryOptimized: instanceTypes.instanceTypes.filter({$0.starts(with: "r") || $0.starts(with: "x") || $0.starts(with: "z")}).sorted(), storageOptimized: instanceTypes.instanceTypes.filter({$0.starts(with: "d") || $0.starts(with: "h") || $0.starts(with: "i")}).sorted()).environmentObject(instanceTypes).environmentObject(userPreferences),
                     tag: "Spot Pricing",

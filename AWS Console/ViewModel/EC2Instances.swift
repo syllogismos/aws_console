@@ -23,13 +23,13 @@ class EC2Instances: ObservableObject {
     func refreshKeys() {
         self.accessKey = UserDefaults.standard.object(forKey: "accessKey") as? String ?? ""
         self.secretKey = UserDefaults.standard.object(forKey: "secretKey") as? String ?? ""
-        self.region = UserDefaults.standard.object(forKey: "region") as? String ?? ""
+        self.region = UserDefaults.standard.object(forKey: "region") as? String ?? "us-east-1"
     }
     
     init() {
         self.accessKey = UserDefaults.standard.object(forKey: "accessKey") as? String ?? ""
         self.secretKey = UserDefaults.standard.object(forKey: "secretKey") as? String ?? ""
-        self.region = UserDefaults.standard.object(forKey: "region") as? String ?? ""
+        self.region = UserDefaults.standard.object(forKey: "region") as? String ?? "us-east-1"
         
         self.getEC2Instances()
 //        print(self.accessKey)
@@ -158,10 +158,16 @@ class EC2Instances: ObservableObject {
                 case .failure(let error):
                     print(error)
                     print("stopping instances failed")
+                    DispatchQueue.main.async {
+                        sendUserNotification(title: "Stopping instance \(instanceIds.first!) failed!", subtitle: "Try again later or check AWS web console.")
+                    }
                     shutdown()
                 case .success(let output):
                     print(output)
                     print("stopping instances success")
+                    DispatchQueue.main.async {
+                        sendUserNotification(title: "Stopped instance \(instanceIds.first!)", subtitle: "Refresh the console to see updated status")
+                    }
                     shutdown()
                 }
             }
@@ -189,10 +195,16 @@ class EC2Instances: ObservableObject {
                 case .failure(let error):
                     print(error)
                     print("terminate instances failed")
+                    DispatchQueue.main.async {
+                        sendUserNotification(title: "Terminating instance \(instanceIds.first!) failed!", subtitle: "Try again later or check AWS web console.")
+                    }
                     shutdown()
                 case .success(let output):
                     print(output)
                     print("terminate instances success")
+                    DispatchQueue.main.async {
+                        sendUserNotification(title: "Terminated instance \(instanceIds.first!)", subtitle: "Refresh the console to see updated status")
+                    }
                     shutdown()
                 }
             }
@@ -220,10 +232,16 @@ class EC2Instances: ObservableObject {
                 case .failure(let error):
                     print(error)
                     print("starting instances failed")
+                    DispatchQueue.main.async {
+                        sendUserNotification(title: "Starting instance \(instanceIds.first!) failed", subtitle: "Try again!!")
+                    }
                     shutdown()
                 case .success(let output):
                     print(output)
                     print("starting instances success")
+                    DispatchQueue.main.async {
+                        sendUserNotification(title: "Started instance \(instanceIds.first!)", subtitle: "Refresh the console to see updated status")
+                    }
                     shutdown()
                 }
             }

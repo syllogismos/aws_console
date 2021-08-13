@@ -13,6 +13,7 @@ struct ContentView: View {
     @StateObject var s3Buckets = S3Buckets()
     @StateObject var spotPrice = SpotPrice()
     @StateObject var instanceTypes = InstanceTypes()
+    @StateObject var amiViewModel = AMIViewModel()
     @EnvironmentObject var userPreferences: UserPreferences
     let timer = Timer.publish(every: 300, on: .main, in: .common).autoconnect()
     
@@ -34,6 +35,7 @@ struct ContentView: View {
         .environmentObject(s3Buckets)
         .environmentObject(spotPrice)
         .environmentObject(instanceTypes)
+//        .environmentObject(amiViewModel)
         // Refresh instances automatically every 300 seconds.
         .onReceive(timer, perform:{time in self.instances.getEC2Instances()})
     }

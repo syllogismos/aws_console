@@ -27,14 +27,14 @@ class InstanceTypes: ObservableObject{
     func refreshKeys() {
         self.accessKey = UserDefaults.standard.object(forKey: "accessKey") as? String ?? ""
         self.secretKey = UserDefaults.standard.object(forKey: "secretKey") as? String ?? ""
-        self.region = UserDefaults.standard.object(forKey: "region") as? String ?? ""
+        self.region = UserDefaults.standard.object(forKey: "region") as? String ?? "us-east-1"
         self.os = UserDefaults.standard.object(forKey: "os") as? OperatingSystem ?? LinuxOS
     }
     
     init() {
         self.accessKey = UserDefaults.standard.object(forKey: "accessKey") as? String ?? ""
         self.secretKey = UserDefaults.standard.object(forKey: "secretKey") as? String ?? ""
-        self.region = UserDefaults.standard.object(forKey: "region") as? String ?? ""
+        self.region = UserDefaults.standard.object(forKey: "region") as? String ?? "us-east-1"
         self.os = UserDefaults.standard.object(forKey: "os") as? OperatingSystem ?? LinuxOS
         self.getInstanceOfferings()
     }
