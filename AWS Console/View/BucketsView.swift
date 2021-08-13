@@ -28,7 +28,13 @@ struct BucketsView: View {
                 }){
                     Image(systemName: "chevron.backward")
                 }
-                Button(action: {s3Buckets.getS3Buckets()}){
+                Button(action: {
+                    self.s3Buckets.getS3Buckets()
+                    if self.s3Buckets.currentBucket != "" {
+                        let prefix = self.s3Buckets.prefixes.popLast()
+                        self.s3Buckets.listObjects(bucketName: self.s3Buckets.currentBucket, prefix: prefix!)
+                    }
+                }){
                     Image(systemName: "arrow.clockwise")
                 }
             }

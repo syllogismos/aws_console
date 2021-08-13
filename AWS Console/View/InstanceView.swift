@@ -29,7 +29,7 @@ struct InstanceView: View {
                     Spacer()
                     VStack(alignment: .leading){
                         Text("Current Price").font(.title3).foregroundColor(.accentColor)
-                        Text("$\((self.instance.state?.name?.rawValue == "running" && self.instanceTypes.pricingDetails != nil ? Double(self.instanceTypes.pricingDetails!.terms.OnDemand.values.first?.priceDimensions.values.first?.pricePerUnit.USD ?? "-")! : 0) + self.ec2Instances.volumesPrice) per hour")
+                        Text("$\((self.instance.state?.name?.rawValue == "running" && self.instanceTypes.pricingDetails != nil ? Double(self.instanceTypes.pricingDetails!.terms.OnDemand.values.first?.priceDimensions.values.first?.pricePerUnit.USD ?? "-")! : 0)*24 + self.ec2Instances.volumesPrice*24) per day")
                     }.padding().border(Color.secondary)
                     Spacer()
                     VStack(alignment: .center){
