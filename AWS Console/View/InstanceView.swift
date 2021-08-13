@@ -16,6 +16,8 @@ struct InstanceView: View {
     @EnvironmentObject var userPref: UserPreferences
     @Environment(\.openURL) var openURL
     
+    @State private var terminateSheetIsShowing = false
+    
     @ViewBuilder
     var body: some View {
         ScrollView {
@@ -40,9 +42,12 @@ struct InstanceView: View {
                         Button(action: {ec2Instances.stopInstances(instanceIds: [self.instance.instanceId!])}) {
                             Label("Stop", systemImage: "pause.circle")
                         }.foregroundColor(.yellow)
-                        Button(action: {ec2Instances.terminateInstances(instanceIds: [self.instance.instanceId!])}) {
+                        Button(action: {self.terminateSheetIsShowing.toggle()}) {
                             Label("Terminate", systemImage: "stop.circle")
                         }.foregroundColor(.red)
+                        .sheet(isPresented: $terminateSheetIsShowing) {
+                            TerminateInstanceSheetView(isVisible: self.$terminateSheetIsShowing, instance: self.instance)
+                        }
                     }
                 }
                 .padding()
@@ -98,7 +103,29 @@ struct InstanceView: View {
     }
 }
 
+struct TerminateInstanceSheetView: View {
+    @Binding var isVisible: Bool
+    var instance: EC2.Instance
+    @EnvironmentObject var ec2Instances: EC2Instances
 
+    var body: some View {
+        VStack {
+            Text("Do you really want to terminate the instance \(self.instance.instanceId!)")
+                .padding()
+            Spacer()
+            HStack{
+                Button("OK") {
+                    self.isVisible = false
+                    ec2Instances.terminateInstances(instanceIds: [self.instance.instanceId!])
+                }
+                Button("Cancel") {
+                    self.isVisible = false
+                }
+            }.padding()
+        }
+        .frame(width: 300, height: 150)
+    }
+}
 
 struct Tag {
     var key: String
