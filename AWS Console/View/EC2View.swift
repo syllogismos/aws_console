@@ -12,6 +12,7 @@ struct EC2View: View {
     
     @EnvironmentObject var instances: EC2Instances
     @EnvironmentObject var userPreferences: UserPreferences
+    @Environment(\.openURL) var openURL
     
     @State var instanceName = ""
     
@@ -42,8 +43,9 @@ struct EC2View: View {
             }
             HStack(spacing: 2.0) {
                 TextField("Create New Instance", text: $instanceName)
+                    .disabled(true)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                Button(action: {}){
+                Button(action: {openURL(URL(string: "https://console.aws.amazon.com/ec2/v2/home?region=\(self.userPreferences.region)#LaunchInstanceWizard:")!)}){
                     Image(systemName: "plus")
                 }
                 .buttonStyle(PlainButtonStyle())

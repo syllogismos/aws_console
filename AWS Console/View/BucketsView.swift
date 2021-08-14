@@ -42,7 +42,7 @@ struct BucketsView: View {
             HStack(spacing: 2.0) {
                 TextField("Create New Bucket", text: $bucketName)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                Button(action: {}){
+                Button(action: {self.s3Buckets.createS3Bucket(name: bucketName)}){
                     Image(systemName: "plus")
                 }
                 .buttonStyle(PlainButtonStyle())

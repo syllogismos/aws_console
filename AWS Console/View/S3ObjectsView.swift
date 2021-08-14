@@ -60,7 +60,7 @@ struct S3ObjectsView: View {
                     }
                 }
             }
-            .frame(minWidth: 400)
+            .frame(minWidth: 300)
             Spacer()
             DragDropView(bucketName: bucketName)
             

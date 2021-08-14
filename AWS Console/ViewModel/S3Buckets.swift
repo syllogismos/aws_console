@@ -37,6 +37,43 @@ class S3Buckets: ObservableObject{
         self.getS3Buckets()
     }
     
+    func createS3Bucket(name: String) {
+        print("creating a new s3 bucket \(name)")
+        refreshKeys()
+        let client = AWSClient(credentialProvider: .static(accessKeyId: self.accessKey, secretAccessKey: self.secretKey), httpClientProvider: .createNew)
+        
+        let shutdown = {
+            [client] in
+            do {
+                try client.syncShutdown()
+            } catch {
+                print("client shutdown error deinit in creates3bucket")
+            }
+        }
+        
+        let s3 = S3(client: client)
+        
+        let s3request = S3.CreateBucketRequest(bucket: name)
+        // currently only handles creation of buckets in us-east-1
+        
+        s3.createBucket(s3request)
+            .whenComplete {response in
+                switch response {
+                case .failure(let error):
+                    print(error)
+                    print("Failure s3 create bucket")
+                    sendUserNotification(title: "Bucket Creation Failed", subtitle: error.localizedDescription)
+                    shutdown()
+                case .success(let output):
+                    print("Success creating a bucket")
+                    sendUserNotification(title: "\(name) bucket created", subtitle: "Refresh to see your new bucket")
+                    shutdown()
+                    print(output)
+                }
+            }
+        
+    }
+    
     func getS3Buckets() {
         print("Getting S3 Buckets")
         refreshKeys()
