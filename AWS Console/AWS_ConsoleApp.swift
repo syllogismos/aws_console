@@ -18,9 +18,35 @@ struct AWS_ConsoleApp: App {
         }
         
         Settings{
-            KeysView()
+            PreferencesView()
                 .environmentObject(userPreferences)
         }
+        
+        
+    }
+}
+
+struct PreferencesView: View {
+    @EnvironmentObject var userPreferences: UserPreferences
+    private enum Tabs: Hashable {
+        case general, advanced
+    }
+    var body: some View {
+        TabView {
+            KeysView()
+                .environmentObject(userPreferences)
+                .tabItem {
+                    Label("General", systemImage: "gear")
+                }
+                .tag(Tabs.general)
+//            AdvancedSettingsView()
+//                .tabItem {
+//                    Label("Advanced", systemImage: "star")
+//                }
+//                .tag(Tabs.advanced)
+        }
+        .padding(20)
+        .frame(height: 200)
     }
 }
 

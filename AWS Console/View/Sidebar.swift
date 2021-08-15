@@ -74,7 +74,7 @@ struct Sidebar: View {
                 tag: "Settings",
                 selection: $userPreferences.sidebarSelection,
                 label: {
-                Label("Settings", systemImage: "gear")
+                Label("Settings/Help", systemImage: "gear")
             })
         }
         .listStyle((SidebarListStyle()))
