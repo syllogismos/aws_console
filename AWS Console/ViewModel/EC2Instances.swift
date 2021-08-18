@@ -13,6 +13,8 @@ class EC2Instances: ObservableObject {
     @Published var instances = [EC2.Instance]()
     @Published var searchString = ""
     @Published var instanceVolumes = [EC2.Volume]()
+    @Published var volumesStoragePrice: Double = 0.0
+    @Published var volumesIOPSPrice: Double = 0.0
     @Published var volumesPrice: Double = 0.0
     
     private var subscription: AnyCancellable?
@@ -51,6 +53,20 @@ class EC2Instances: ObservableObject {
         let rounded_price = Double(round(10000*price_per_hour)/10000)
 
         return rounded_price
+    }
+    
+    func getVolumeIOPSPrice(volume: EC2.Volume) -> Double {
+        print(self.region)
+        print("volume iops pricing region")
+        let iopsVolumeTypes = ["gp3", "io2", "io1"]
+        let volumeType = volume.volumeType!.rawValue
+        let iops = volume.iops ?? 0
+        if  iopsVolumeTypes.contains(volumeType){
+            let priceFunc = iopsPricing[self.region]![volumeType] ?? {(x: Int) -> Double in return 0.0}
+            return priceFunc(iops)
+        } else {
+            return 0.0
+        }
     }
 
     func getEC2Instances() {
@@ -127,8 +143,15 @@ class EC2Instances: ObservableObject {
                         self.instanceVolumes = output.volumes ?? []
                         let volumePriceArray = self.instanceVolumes.map {(volume) -> Double in self.getVolumeStoragePrice(volume: volume)}
                         print(volumePriceArray)
-                        self.volumesPrice = volumePriceArray.reduce(0, +)
-                        print(self.volumesPrice)
+                        self.volumesStoragePrice = volumePriceArray.reduce(0, +)
+                        print(self.volumesStoragePrice)
+                        
+                        let iopsPriceArray = self.instanceVolumes.map{(volume) -> Double in self.getVolumeIOPSPrice(volume: volume)}
+                        print(iopsPriceArray)
+                        self.volumesIOPSPrice = iopsPriceArray.reduce(0, +)
+                        print(self.volumesIOPSPrice)
+                        
+                        self.volumesPrice = self.volumesStoragePrice + self.volumesIOPSPrice
                     }
                     shutdown()
                 }
