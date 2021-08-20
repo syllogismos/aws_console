@@ -31,6 +31,7 @@ struct SettingsView_Previews: PreviewProvider {
 
 struct KeysView: View {
     @EnvironmentObject var userPreferences: UserPreferences
+    @Environment(\.openURL) var openURL
     
     @State var hideKeys = true
     
@@ -41,26 +42,39 @@ struct KeysView: View {
             //                .font(.title)
             //                .multilineTextAlignment(.leading)
             
+            
             HStack{
-                Text("Access Key:")
-                if hideKeys {
-                    SecureField("Access Key", text: $userPreferences.accessKey)
-                } else {
-                    TextField("Access Key", text: $userPreferences.accessKey)
+                VStack{
+                    HStack{
+                        Text("Access Key:")
+                        if hideKeys {
+                            SecureField("Access Key", text: $userPreferences.accessKey)
+                        } else {
+                            TextField("Access Key", text: $userPreferences.accessKey)
+                        }
+                    }
+                    HStack{
+                        Text("Access Secret:")
+                        if hideKeys{
+                            SecureField("Access Secret", text: $userPreferences.secretKey)
+                        } else {
+                            TextField("Access Secret", text: $userPreferences.secretKey)
+                        }
+                    }
+                    
+                }.frame(maxWidth: 350)
+                Button{openURL(URL(string: "https://console.aws.amazon.com/iamv2/home?#/users")!)} label: {
+                    Text("Create a new key pair")
                 }
-            }
-            HStack{
-                Text("Access Secret:")
-                if hideKeys{
-                    SecureField("Access Secret", text: $userPreferences.secretKey)
-                } else {
-                    TextField("Access Secret", text: $userPreferences.secretKey)
-                }
+                Spacer()
             }
             HStack() {
                 Toggle("Hide Keys", isOn: $hideKeys)
                 Spacer()
+                
+                
             }
+            
             
             HStack {
                 Picker(selection: $userPreferences.region, label: Text("Default Region:")) {
@@ -69,9 +83,9 @@ struct KeysView: View {
                 }
                 .frame(minWidth: 150, maxWidth: 200)
                 .clipped()
-//                Button{checkAWSClient(accessKey: userPreferences.accessKey, secretKey: userPreferences.secretKey)} label: {
-//                    Text("Check AWS Credentials")
-//                }
+                //                Button{checkAWSClient(accessKey: userPreferences.accessKey, secretKey: userPreferences.secretKey)} label: {
+                //                    Text("Check AWS Credentials")
+                //                }
                 Button{enableNotifications()} label: {
                     Text("Enable Notifications")
                 }
