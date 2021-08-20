@@ -30,6 +30,7 @@ struct InstanceView: View {
                     VStack(alignment: .leading){
                         Text("Current Price").font(.title3).foregroundColor(.accentColor)
                         if self.instance.instanceLifecycle?.rawValue ?? "nil" == "spot" {
+                            // TODO: Fix this to show spot instance price
                             Text("$\((self.instance.state?.name?.rawValue == "running" && self.instanceTypes.spotPriceHistory != nil && instanceTypes.spotPriceHistory!.filter({(spot) -> Bool in spot.availabilityZone == self.instance.placement?.availabilityZone ?? ""}).count > 0 ? Double(self.instanceTypes.pricingDetails!.terms.OnDemand.values.first?.priceDimensions.values.first?.pricePerUnit.USD ?? "-")! : 0)*24 + self.ec2Instances.volumesPrice*24) per day")
                         } else {
                             Text("$\((self.instance.state?.name?.rawValue == "running" && self.instanceTypes.pricingDetails != nil ? Double(self.instanceTypes.pricingDetails!.terms.OnDemand.values.first?.priceDimensions.values.first?.pricePerUnit.USD ?? "-")! : 0)*24 + self.ec2Instances.volumesPrice*24) per day")
