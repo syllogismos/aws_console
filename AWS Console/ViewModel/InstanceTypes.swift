@@ -120,6 +120,7 @@ class InstanceTypes: ObservableObject{
     }
     
     func getSpotPriceHistory(type: String){
+        self.spotPriceHistory = nil
         print("Getting spot price details")
         refreshKeys()
         let client = AWSClient(credentialProvider: .static(accessKeyId: self.accessKey, secretAccessKey: self.secretKey), httpClientProvider: .createNew)
@@ -157,6 +158,7 @@ class InstanceTypes: ObservableObject{
     }
     
     func getPricingDetails(type: String){
+        self.pricingDetails = nil
         print("Getting pricing details")
         refreshKeys()
         let client = AWSClient(credentialProvider: .static(accessKeyId: self.accessKey, secretAccessKey: self.secretKey), httpClientProvider: .createNew)

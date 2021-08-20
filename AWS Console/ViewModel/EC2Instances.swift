@@ -16,6 +16,7 @@ class EC2Instances: ObservableObject {
     @Published var volumesStoragePrice: Double = 0.0
     @Published var volumesIOPSPrice: Double = 0.0
     @Published var volumesPrice: Double = 0.0
+    @Published var volumesThroughputPrice: Double = 0.0
     
     private var subscription: AnyCancellable?
     private var accessKey: String
@@ -64,6 +65,18 @@ class EC2Instances: ObservableObject {
         if  iopsVolumeTypes.contains(volumeType){
             let priceFunc = iopsPricing[self.region]![volumeType] ?? {(x: Int) -> Double in return 0.0}
             return priceFunc(iops)
+        } else {
+            return 0.0
+        }
+    }
+    
+    
+    func getVolumeThroughputPrice(volume: EC2.Volume) -> Double {
+        print(self.region)
+        let volumeType = volume.volumeType!.rawValue
+        if volumeType == "gp3" {
+            let priceFunc = throughputPricing[self.region]![volumeType] ?? {(x: Int) -> Double in return 0.0}
+            return priceFunc(volume.throughput ?? 0)
         } else {
             return 0.0
         }
@@ -140,6 +153,7 @@ class EC2Instances: ObservableObject {
                     print(output)
                     print("asfafafafafa")
                     DispatchQueue.main.async {
+                        print("voumesssssssssssss")
                         self.instanceVolumes = output.volumes ?? []
                         let volumePriceArray = self.instanceVolumes.map {(volume) -> Double in self.getVolumeStoragePrice(volume: volume)}
                         print(volumePriceArray)
@@ -151,7 +165,11 @@ class EC2Instances: ObservableObject {
                         self.volumesIOPSPrice = iopsPriceArray.reduce(0, +)
                         print(self.volumesIOPSPrice)
                         
-                        self.volumesPrice = self.volumesStoragePrice + self.volumesIOPSPrice
+                        let throughputPriceArray = self.instanceVolumes.map{(volume) -> Double in self.getVolumeThroughputPrice(volume: volume)}
+                        print(throughputPriceArray)
+                        self.volumesThroughputPrice = throughputPriceArray.reduce(0, +)
+                        
+                        self.volumesPrice = self.volumesStoragePrice + self.volumesIOPSPrice + self.volumesThroughputPrice
                     }
                     shutdown()
                 }

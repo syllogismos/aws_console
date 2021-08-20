@@ -29,7 +29,11 @@ struct InstanceView: View {
                     Spacer()
                     VStack(alignment: .leading){
                         Text("Current Price").font(.title3).foregroundColor(.accentColor)
-                        Text("$\((self.instance.state?.name?.rawValue == "running" && self.instanceTypes.pricingDetails != nil ? Double(self.instanceTypes.pricingDetails!.terms.OnDemand.values.first?.priceDimensions.values.first?.pricePerUnit.USD ?? "-")! : 0)*24 + self.ec2Instances.volumesPrice*24) per day")
+                        if self.instance.instanceLifecycle?.rawValue ?? "nil" == "spot" {
+                            Text("$\((self.instance.state?.name?.rawValue == "running" && self.instanceTypes.spotPriceHistory != nil && instanceTypes.spotPriceHistory!.filter({(spot) -> Bool in spot.availabilityZone == self.instance.placement?.availabilityZone ?? ""}).count > 0 ? Double(self.instanceTypes.pricingDetails!.terms.OnDemand.values.first?.priceDimensions.values.first?.pricePerUnit.USD ?? "-")! : 0)*24 + self.ec2Instances.volumesPrice*24) per day")
+                        } else {
+                            Text("$\((self.instance.state?.name?.rawValue == "running" && self.instanceTypes.pricingDetails != nil ? Double(self.instanceTypes.pricingDetails!.terms.OnDemand.values.first?.priceDimensions.values.first?.pricePerUnit.USD ?? "-")! : 0)*24 + self.ec2Instances.volumesPrice*24) per day")
+                        }
                     }.padding().border(Color.secondary)
                     Spacer()
                     VStack(alignment: .center){
@@ -152,6 +156,8 @@ struct InstanceSummary: View {
                 ClickToCopy(title: "State", text: self.instance.state?.name?.rawValue ?? "", clickToCopy: false)
                     .foregroundColor(instance.state?.name?.rawValue ?? "" == "running" ? Color.green : Color.primary)
                 ClickToCopy(title: "Availability Zone", text: self.instance.placement?.availabilityZone ?? "")
+                ClickToCopy(title: "Instance Life Cycle", text: self.instance.instanceLifecycle?.rawValue ?? "nil", clickToCopy: false )
+                    .foregroundColor(instance.instanceLifecycle?.rawValue ?? "nil" == "spot" ? Color.blue : Color.primary)
                 ClickToCopy(title: "Public IP", text: self.instance.publicIpAddress ?? "-")
                 ClickToCopy(title: "Public DNS", text: self.instance.publicDnsName ?? "-")
             }
@@ -159,14 +165,19 @@ struct InstanceSummary: View {
                 ClickToCopy(title: "Private IP", text: self.instance.privateIpAddress ?? "")
                 ClickToCopy(title: "Private DNS", text: self.instance.privateDnsName ?? "")
                 ClickToCopy(title: "VPC Id", text: self.instance.vpcId ?? "")
-                if instanceTypes.pricingDetails != nil {
-                    ClickToCopy(title: "Price Per Hour", text: self.instanceTypes.pricingDetails!.terms.OnDemand.values.first?.priceDimensions.values.first?.pricePerUnit.USD ?? "-", clickToCopy: false)
-                }
                 ClickToCopy(title: "Key", text: self.instance.keyName ?? "")
                 ClickToCopy(title: "Image", text: self.instance.imageId ?? "")
+                if instanceTypes.pricingDetails != nil{
+                    ClickToCopy(title: "Price Per Hour", text: self.instanceTypes.pricingDetails!.terms.OnDemand.values.first?.priceDimensions.values.first?.pricePerUnit.USD ?? "-", clickToCopy: false)
+                }
+                if instanceTypes.spotPriceHistory != nil && instanceTypes.spotPriceHistory!.filter({(spot) -> Bool in spot.availabilityZone == self.instance.placement?.availabilityZone ?? ""}).count > 0{
+                    ClickToCopy(title: "Spot Price Per Hour", text: ((self.instanceTypes.spotPriceHistory?.filter({(spot) -> Bool in spot.availabilityZone == self.instance.placement?.availabilityZone ?? ""}))?.first!.spotPrice!.description)!, clickToCopy: false)
+                }
             }
             
-        }
+        }.onAppear(perform: {
+            instanceTypes.getSpotPriceHistory(type: self.instance.instanceType!.rawValue)
+        })
         
     }
 }
@@ -209,15 +220,33 @@ struct VolumesView: View {
                     }
                 }
                 VStack(alignment: .leading){
+                    Text("Throughput").font(.caption)
+                    ForEach(ec2Instances.instanceVolumes, id: \.volumeId){volume in
+                        Text(volume.throughput?.description ?? "nil")
+                    }
+                }
+                VStack(alignment: .leading){
                     Text("Delete on Termination").font(.caption)
                     ForEach(ec2Instances.instanceVolumes, id: \.volumeId){volume in
                         Text(volume.attachments?.first!.deleteOnTermination?.description ?? "")
                     }
                 }
                 VStack(alignment: .leading){
-                    Text("Price per hour").font(.caption)
+                    Text("Storage Price").font(.caption)
                     ForEach(ec2Instances.instanceVolumes, id: \.volumeId){volume in
-                        Text(ec2Instances.getVolumeStoragePrice(volume: volume).description)
+                        Text("\(roundFunc4(ec2Instances.getVolumeStoragePrice(volume: volume)).description) per hour")
+                    }
+                }
+                VStack(alignment: .leading){
+                    Text("IOPS Price").font(.caption)
+                    ForEach(ec2Instances.instanceVolumes, id: \.volumeId){volume in
+                        Text("\(roundFunc4(ec2Instances.getVolumeIOPSPrice(volume: volume)).description) per hour")
+                    }
+                }
+                VStack(alignment: .leading){
+                    Text("Throughput Price").font(.caption)
+                    ForEach(ec2Instances.instanceVolumes, id: \.volumeId){volume in
+                        Text("\(roundFunc4(ec2Instances.getVolumeThroughputPrice(volume: volume)).description) per hour")
                     }
                 }
             }

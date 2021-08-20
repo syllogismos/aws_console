@@ -167,5 +167,40 @@ let iopsPricing = [
     
 ] as [String: [String: (Int) -> Double]]
 
+func gp3Throughput(price: Double) -> (Int) -> Double {
+    return {(x: Int) -> Double in
+        if x <= 125 {
+            return 0.0
+        } else {
+            return price*Double((x - 125))*mult
+        }
+        
+    }
+}
+
+let throughputPricing = [
+    "us-east-1": ["gp3": gp3Throughput(price: 0.04)],
+    "us-east-2": ["gp3": gp3Throughput(price: 0.04)],
+    "af-south-1": ["gp3": gp3Throughput(price: 0.0524)],
+    "ap-east-1": ["gp3": gp3Throughput(price: 0.0528)],
+    "ap-northeast-1": ["gp3": gp3Throughput(price: 0.048)],
+    "ap-northeast-2": ["gp3": gp3Throughput(price: 0.0456)],
+    "ap-northeast-3": ["gp3": gp3Throughput(price: 0.048)],
+    "ap-south-1": ["gp3": gp3Throughput(price: 0.0456)],
+    "ap-southeast-1": ["gp3": gp3Throughput(price: 0.048)],
+    "ap-southeast-2": ["gp3": gp3Throughput(price: 0.048)],
+    "ca-central-1": ["gp3": gp3Throughput(price: 0.044)],
+    "eu-central-1": ["gp3": gp3Throughput(price: 0.0476)],
+    "eu-north-1": ["gp3": gp3Throughput(price: 0.0418)],
+    "eu-south-1": ["gp3": gp3Throughput(price: 0.0462)],
+    "eu-west-1": ["gp3": gp3Throughput(price: 0.044)],
+    "eu-west-2": ["gp3": gp3Throughput(price: 0.0464)],
+    "eu-west-3": ["gp3": gp3Throughput(price: 0.0464)],
+    "me-south-1": ["gp3": gp3Throughput(price: 0.0484)],
+    "sa-east-1": ["gp3": gp3Throughput(price: 0.076)],
+    "us-west-1": ["gp3": gp3Throughput(price: 0.048)],
+    "us-west-2": ["gp3": gp3Throughput(price: 0.04)],
+] as [String: [String: (Int) -> Double]]
+
 
 
