@@ -81,17 +81,17 @@
 		049F941E26621F22003F3235 /* SpotPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotPrice.swift; sourceTree = "<group>"; };
 		04F4451326C6203F0008F5A4 /* AMIViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AMIViewModel.swift; sourceTree = "<group>"; };
 		04F4451526C6ECD70008F5A4 /* InstancesHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstancesHelper.swift; sourceTree = "<group>"; };
-		04F4C44A265D324C006A3DDE /* AWS Console.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AWS Console.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		04F4C44A265D324C006A3DDE /* Compute Manager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Compute Manager.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		04F4C44D265D324C006A3DDE /* AWS_ConsoleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWS_ConsoleApp.swift; sourceTree = "<group>"; };
 		04F4C44F265D324C006A3DDE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		04F4C451265D3250006A3DDE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04F4C454265D3250006A3DDE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		04F4C456265D3250006A3DDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04F4C457265D3250006A3DDE /* AWS_Console.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AWS_Console.entitlements; sourceTree = "<group>"; };
-		04F4C45C265D3250006A3DDE /* AWS ConsoleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AWS ConsoleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		04F4C45C265D3250006A3DDE /* Compute ManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Compute ManagerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		04F4C460265D3250006A3DDE /* AWS_ConsoleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWS_ConsoleTests.swift; sourceTree = "<group>"; };
 		04F4C462265D3250006A3DDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		04F4C467265D3250006A3DDE /* AWS ConsoleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AWS ConsoleUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		04F4C467265D3250006A3DDE /* Compute ManagerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Compute ManagerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		04F4C46B265D3250006A3DDE /* AWS_ConsoleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWS_ConsoleUITests.swift; sourceTree = "<group>"; };
 		04F4C46D265D3250006A3DDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04F4C47C265D3314006A3DDE /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
@@ -160,9 +160,9 @@
 		04F4C44B265D324C006A3DDE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				04F4C44A265D324C006A3DDE /* AWS Console.app */,
-				04F4C45C265D3250006A3DDE /* AWS ConsoleTests.xctest */,
-				04F4C467265D3250006A3DDE /* AWS ConsoleUITests.xctest */,
+				04F4C44A265D324C006A3DDE /* Compute Manager.app */,
+				04F4C45C265D3250006A3DDE /* Compute ManagerTests.xctest */,
+				04F4C467265D3250006A3DDE /* Compute ManagerUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -255,9 +255,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		04F4C449265D324C006A3DDE /* AWS Console */ = {
+		04F4C449265D324C006A3DDE /* Compute Manager */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 04F4C470265D3250006A3DDE /* Build configuration list for PBXNativeTarget "AWS Console" */;
+			buildConfigurationList = 04F4C470265D3250006A3DDE /* Build configuration list for PBXNativeTarget "Compute Manager" */;
 			buildPhases = (
 				04F4C446265D324C006A3DDE /* Sources */,
 				04F4C447265D324C006A3DDE /* Frameworks */,
@@ -267,7 +267,7 @@
 			);
 			dependencies = (
 			);
-			name = "AWS Console";
+			name = "Compute Manager";
 			packageProductDependencies = (
 				04F4C485265E2EC8006A3DDE /* SotoS3 */,
 				04F4C487265E2EC8006A3DDE /* SotoEBS */,
@@ -276,12 +276,12 @@
 				0431004B2679FFC7002E132E /* SotoS3FileTransfer */,
 			);
 			productName = "AWS Console";
-			productReference = 04F4C44A265D324C006A3DDE /* AWS Console.app */;
+			productReference = 04F4C44A265D324C006A3DDE /* Compute Manager.app */;
 			productType = "com.apple.product-type.application";
 		};
-		04F4C45B265D3250006A3DDE /* AWS ConsoleTests */ = {
+		04F4C45B265D3250006A3DDE /* Compute ManagerTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 04F4C473265D3250006A3DDE /* Build configuration list for PBXNativeTarget "AWS ConsoleTests" */;
+			buildConfigurationList = 04F4C473265D3250006A3DDE /* Build configuration list for PBXNativeTarget "Compute ManagerTests" */;
 			buildPhases = (
 				04F4C458265D3250006A3DDE /* Sources */,
 				04F4C459265D3250006A3DDE /* Frameworks */,
@@ -292,14 +292,14 @@
 			dependencies = (
 				04F4C45E265D3250006A3DDE /* PBXTargetDependency */,
 			);
-			name = "AWS ConsoleTests";
+			name = "Compute ManagerTests";
 			productName = "AWS ConsoleTests";
-			productReference = 04F4C45C265D3250006A3DDE /* AWS ConsoleTests.xctest */;
+			productReference = 04F4C45C265D3250006A3DDE /* Compute ManagerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		04F4C466265D3250006A3DDE /* AWS ConsoleUITests */ = {
+		04F4C466265D3250006A3DDE /* Compute ManagerUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 04F4C476265D3250006A3DDE /* Build configuration list for PBXNativeTarget "AWS ConsoleUITests" */;
+			buildConfigurationList = 04F4C476265D3250006A3DDE /* Build configuration list for PBXNativeTarget "Compute ManagerUITests" */;
 			buildPhases = (
 				04F4C463265D3250006A3DDE /* Sources */,
 				04F4C464265D3250006A3DDE /* Frameworks */,
@@ -310,9 +310,9 @@
 			dependencies = (
 				04F4C469265D3250006A3DDE /* PBXTargetDependency */,
 			);
-			name = "AWS ConsoleUITests";
+			name = "Compute ManagerUITests";
 			productName = "AWS ConsoleUITests";
-			productReference = 04F4C467265D3250006A3DDE /* AWS ConsoleUITests.xctest */;
+			productReference = 04F4C467265D3250006A3DDE /* Compute ManagerUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -337,7 +337,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 04F4C445265D324C006A3DDE /* Build configuration list for PBXProject "AWS Console" */;
+			buildConfigurationList = 04F4C445265D324C006A3DDE /* Build configuration list for PBXProject "Compute Manager" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -354,9 +354,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				04F4C449265D324C006A3DDE /* AWS Console */,
-				04F4C45B265D3250006A3DDE /* AWS ConsoleTests */,
-				04F4C466265D3250006A3DDE /* AWS ConsoleUITests */,
+				04F4C449265D324C006A3DDE /* Compute Manager */,
+				04F4C45B265D3250006A3DDE /* Compute ManagerTests */,
+				04F4C466265D3250006A3DDE /* Compute ManagerUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -444,12 +444,12 @@
 /* Begin PBXTargetDependency section */
 		04F4C45E265D3250006A3DDE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 04F4C449265D324C006A3DDE /* AWS Console */;
+			target = 04F4C449265D324C006A3DDE /* Compute Manager */;
 			targetProxy = 04F4C45D265D3250006A3DDE /* PBXContainerItemProxy */;
 		};
 		04F4C469265D3250006A3DDE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 04F4C449265D324C006A3DDE /* AWS Console */;
+			target = 04F4C449265D324C006A3DDE /* Compute Manager */;
 			targetProxy = 04F4C468265D3250006A3DDE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -579,7 +579,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"AWS Console/Preview Content\"";
 				DEVELOPMENT_TEAM = 24M2C25H4J;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -606,7 +606,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"AWS Console/Preview Content\"";
 				DEVELOPMENT_TEAM = 24M2C25H4J;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -641,7 +641,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Anil-Karaka.AWS-ConsoleTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AWS Console.app/Contents/MacOS/AWS Console";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Compute Manager.app/Contents/MacOS/Compute Manager";
 			};
 			name = Debug;
 		};
@@ -662,7 +662,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Anil-Karaka.AWS-ConsoleTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AWS Console.app/Contents/MacOS/AWS Console";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Compute Manager.app/Contents/MacOS/Compute Manager";
 			};
 			name = Release;
 		};
@@ -707,7 +707,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		04F4C445265D324C006A3DDE /* Build configuration list for PBXProject "AWS Console" */ = {
+		04F4C445265D324C006A3DDE /* Build configuration list for PBXProject "Compute Manager" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				04F4C46E265D3250006A3DDE /* Debug */,
@@ -716,7 +716,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		04F4C470265D3250006A3DDE /* Build configuration list for PBXNativeTarget "AWS Console" */ = {
+		04F4C470265D3250006A3DDE /* Build configuration list for PBXNativeTarget "Compute Manager" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				04F4C471265D3250006A3DDE /* Debug */,
@@ -725,7 +725,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		04F4C473265D3250006A3DDE /* Build configuration list for PBXNativeTarget "AWS ConsoleTests" */ = {
+		04F4C473265D3250006A3DDE /* Build configuration list for PBXNativeTarget "Compute ManagerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				04F4C474265D3250006A3DDE /* Debug */,
@@ -734,7 +734,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		04F4C476265D3250006A3DDE /* Build configuration list for PBXNativeTarget "AWS ConsoleUITests" */ = {
+		04F4C476265D3250006A3DDE /* Build configuration list for PBXNativeTarget "Compute ManagerUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				04F4C477265D3250006A3DDE /* Debug */,
