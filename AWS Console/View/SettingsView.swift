@@ -38,18 +38,59 @@ struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView()
         KeysView().environmentObject(UserPreferences())
+        Support()
+        ChangeLog()
     }
 }
 
 struct Support: View {
     var body: some View {
-        Text("Support Here")
+        VStack {
+            Text("Support [Here](www.google.com)")
+        }.frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
 struct ChangeLog: View {
     var body: some View {
-        Text("Change Log Here")
+        VStack {
+            ScrollView {
+                Text("Change Log").font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("Date: 21st August 2021").font(.caption)
+                        Text("EC2").font(.subheadline .bold())
+                        Text(
+    """
+    ‣ Browse Instances
+    ‣ Display current price of the instance including the EBS costs, per day.
+    ‣ This works even for spot instances according to their current price.
+    ‣ Start/Stop/Terminate Instances from the console.
+    ‣ Open AWS web launch wizard when you are starting a new instance.
+    ‣ Show all available instance types, their price and their current spot price from various availability zones.
+    ‣ Additional confirmation when you are terminating an instance.
+    """)
+                        Text("S3").font(.subheadline .bold())
+                        Text(
+    """
+    ‣ S3 File Browser.
+    ‣ Drag and drop files from your computer to upload to a given bucket/folder location on S3.
+    ‣ Progress bar for file uploads, but not folders.
+    ‣ Create a new Bucket from Compute Manager.
+    ‣ Right click on an object gives you options to delete/open directly from the app.
+    """)
+                    }
+                        
+                    Spacer()
+                }
+            }
+            Spacer()
+            Group{
+                Text("Feel free to email me at ") +
+                Text("anilkaraka@outlook.com").foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/) +
+                Text(" if you find any bugs or have feature requests.")
+            }.font(.footnote)
+        }.frame(maxWidth: .infinity, maxHeight: .infinity).padding()
     }
 }
 
@@ -120,6 +161,11 @@ struct KeysView: View {
                 
             }
             Spacer()
+            HStack{
+                Text("You can find the instructions on how to create a new key pair")
+                Link("here", destination: URL(string: "https://github.com/syllogismos/Compute-Manager")!)
+                
+            }.font(.footnote)
         }
         //        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding()
