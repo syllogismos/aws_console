@@ -18,6 +18,18 @@ struct SettingsView: View {
                 label: {
                     Label("Keys", systemImage: "key")
                 })
+            NavigationLink(
+                destination: Support(),
+                label: {
+                    Label("Support", systemImage: "questionmark.circle")
+                }
+            )
+            NavigationLink(
+                destination: ChangeLog(),
+                label: {
+                    Label("Change Log", systemImage: "list.dash")
+                }
+            )
         }
     }
 }
@@ -26,6 +38,18 @@ struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView()
         KeysView().environmentObject(UserPreferences())
+    }
+}
+
+struct Support: View {
+    var body: some View {
+        Text("Support Here")
+    }
+}
+
+struct ChangeLog: View {
+    var body: some View {
+        Text("Change Log Here")
     }
 }
 
