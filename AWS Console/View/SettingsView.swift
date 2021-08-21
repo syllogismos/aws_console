@@ -95,7 +95,7 @@ struct ChangeLog: View {
             Group{
                 Text("Feel free to email me at ") +
                 Text("anilkaraka@outlook.com").foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/) +
-                Text(" if you find any bugs or have feature requests.")
+                Text(" if you have any issues or have feature requests.")
             }.font(.footnote)
         }.frame(maxWidth: .infinity, maxHeight: .infinity).padding()
     }
@@ -170,7 +170,7 @@ struct KeysView: View {
             Spacer()
             HStack{
                 Text("You can find the instructions on how to create a new key pair")
-                Link("here", destination: URL(string: "https://github.com/syllogismos/Compute-Manager")!)
+                Link("here", destination: URL(string: "https://github.com/syllogismos/Compute-Manager/blob/main/Create%20Key%20Pair%20Instructions.md")!)
                 
             }.font(.footnote)
         }
