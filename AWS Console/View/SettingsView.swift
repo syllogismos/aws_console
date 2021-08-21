@@ -45,9 +45,16 @@ struct SettingsView_Previews: PreviewProvider {
 
 struct Support: View {
     var body: some View {
-        VStack {
-            Text("Support [Here](www.google.com)")
-        }.frame(maxWidth: .infinity, maxHeight: .infinity)
+        VStack(alignment: .center) {
+            Spacer()
+            Group{
+                Text("Email me at ") +
+                Text("anilkaraka@outlook.com").foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/) +
+                Text(" if you find any bugs or have feature requests.")
+            }.font(.title)
+            Spacer()
+            Link("Privacy Policy", destination: URL(string: "https://github.com/syllogismos/Compute-Manager/blob/main/Privacy%20Policy.md")!)
+        }.frame(maxWidth: .infinity, maxHeight: .infinity).padding()
     }
 }
 
