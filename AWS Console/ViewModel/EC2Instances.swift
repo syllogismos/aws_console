@@ -110,9 +110,10 @@ class EC2Instances: ObservableObject {
                     DispatchQueue.main.async {
 //                        print(output.reservations ?? [])
                         let instances_list = output.reservations?.map({$0.instances ?? []})
-                        var instances = instances_list?.flatMap {$0} ?? []
+                        let instances = instances_list?.flatMap {$0} ?? []
 //                        print(instances ?? [])
-                        for _ in 0..<5 {instances += instances}
+                        // for loop for simulating more instances, change let instances to var instances
+//                        for _ in 0..<5 {instances += instances}
                         print("Success EC2")
                         self.instances = instances
 //                        self.searchInstanceString(i: <#T##EC2.Instance#>, searchString: <#T##String#>)(i: self.instances.first!, searchString: "")

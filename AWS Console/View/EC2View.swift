@@ -24,7 +24,7 @@ struct EC2View: View {
                     destination: InstanceView(instance: instance),
                     label: {
                         Text(getNameOfInstanceFromTags(instance: instance))
-                            .foregroundColor(instance.state?.name?.rawValue ?? "" == "running" ? Color.green : Color.primary)
+                            .foregroundColor(instance.state?.name?.rawValue ?? "" != "running" ? Color.gray : Color.primary)
                     })
 //                    .listrow
             }
