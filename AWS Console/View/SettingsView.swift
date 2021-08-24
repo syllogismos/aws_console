@@ -48,10 +48,15 @@ struct Support: View {
         VStack(alignment: .center) {
             Spacer()
             Group{
-                Text("Email me at ") +
+                Text("File an issue, bug or new feature request")
+                Link("here", destination: URL(string: "https://github.com/syllogismos/Compute-Manager/issues")!)
+            }.font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+            Spacer()
+            Group{
+                Text("Feel free to email me at ") +
                 Text("anilkaraka@outlook.com").foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/) +
-                Text(" if you find any bugs or have feature requests.")
-            }.font(.title)
+                Text(" if you have any question.")
+            }.font(.title2)
             Spacer()
             Link("Privacy Policy", destination: URL(string: "https://github.com/syllogismos/Compute-Manager/blob/main/Privacy%20Policy.md")!)
         }.frame(maxWidth: .infinity, maxHeight: .infinity).padding()
