@@ -31,9 +31,9 @@ struct InstanceView: View {
                         Text("Current Price").font(.title3).foregroundColor(.accentColor)
                         if self.instance.instanceLifecycle?.rawValue ?? "nil" == "spot" {
                             // TODO: Fix this to show spot instance price
-                            Text("$\((self.instance.state?.name?.rawValue == "running" && self.instanceTypes.spotPriceHistory != nil && instanceTypes.spotPriceHistory!.filter({(spot) -> Bool in spot.availabilityZone == self.instance.placement?.availabilityZone ?? ""}).count > 0 ? Double(self.instanceTypes.pricingDetails!.terms.OnDemand.values.first?.priceDimensions.values.first?.pricePerUnit.USD ?? "-")! : 0)*24 + self.ec2Instances.volumesPrice*24) per day")
+                            Text("$\((self.instance.state?.name?.rawValue == "running" ? self.instanceTypes.instanceSpotPrice : 0)*24 + self.ec2Instances.volumesPrice*24) per day")
                         } else {
-                            Text("$\((self.instance.state?.name?.rawValue == "running" && self.instanceTypes.pricingDetails != nil ? Double(self.instanceTypes.pricingDetails!.terms.OnDemand.values.first?.priceDimensions.values.first?.pricePerUnit.USD ?? "-")! : 0)*24 + self.ec2Instances.volumesPrice*24) per day")
+                            Text("$\((self.instance.state?.name?.rawValue == "running" ? self.instanceTypes.instancePrice : 0)*24 + self.ec2Instances.volumesPrice*24) per day")
                         }
                     }.padding().border(Color.secondary)
                     Spacer()
@@ -169,15 +169,15 @@ struct InstanceSummary: View {
                 ClickToCopy(title: "Key", text: self.instance.keyName ?? "")
                 ClickToCopy(title: "Image", text: self.instance.imageId ?? "")
                 if instanceTypes.pricingDetails != nil{
-                    ClickToCopy(title: "Price Per Hour", text: self.instanceTypes.pricingDetails!.terms.OnDemand.values.first?.priceDimensions.values.first?.pricePerUnit.USD ?? "-", clickToCopy: false)
+                    ClickToCopy(title: "Price Per Hour", text: self.instanceTypes.instancePrice.description, clickToCopy: false)
                 }
                 if instanceTypes.spotPriceHistory != nil && instanceTypes.spotPriceHistory!.filter({(spot) -> Bool in spot.availabilityZone == self.instance.placement?.availabilityZone ?? ""}).count > 0{
-                    ClickToCopy(title: "Spot Price Per Hour", text: ((self.instanceTypes.spotPriceHistory?.filter({(spot) -> Bool in spot.availabilityZone == self.instance.placement?.availabilityZone ?? ""}))?.first!.spotPrice!.description)!, clickToCopy: false)
+                    ClickToCopy(title: "Spot Price Per Hour", text: self.instanceTypes.instanceSpotPrice.description, clickToCopy: false)
                 }
             }
             
         }.onAppear(perform: {
-            instanceTypes.getSpotPriceHistory(type: self.instance.instanceType!.rawValue)
+            instanceTypes.getSpotPriceHistory(type: self.instance.instanceType!.rawValue, avZone: self.instance.placement?.availabilityZone ?? "")
         })
         
     }

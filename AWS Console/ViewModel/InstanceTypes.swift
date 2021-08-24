@@ -24,6 +24,9 @@ class InstanceTypes: ObservableObject{
     @Published var spotPriceHistory: [EC2.SpotPrice]?
     @Published var pricingDetails: PriceDetails?
     
+    @Published var instanceSpotPrice: Double = 0.0
+    @Published var instancePrice: Double = 0.0
+    
     func refreshKeys() {
         self.accessKey = UserDefaults.standard.object(forKey: "accessKey") as? String ?? ""
         self.secretKey = UserDefaults.standard.object(forKey: "secretKey") as? String ?? ""
@@ -119,7 +122,7 @@ class InstanceTypes: ObservableObject{
         return
     }
     
-    func getSpotPriceHistory(type: String){
+    func getSpotPriceHistory(type: String, avZone: String = ""){
         self.spotPriceHistory = nil
         print("Getting spot price details")
         refreshKeys()
@@ -150,6 +153,9 @@ class InstanceTypes: ObservableObject{
 //                        print(output)
                         self.spotPriceHistory = output.spotPriceHistory
                         print("describe spot price history success")
+                        if avZone != "" && self.spotPriceHistory!.filter({(spot) -> Bool in spot.availabilityZone == avZone}).count > 0 {
+                            self.instanceSpotPrice = Double(self.spotPriceHistory!.filter({(spot) -> Bool in spot.availabilityZone == avZone}).first!.spotPrice!.description) ?? 0.0
+                        }
                     }
                     shutdown()
                 }
@@ -193,7 +199,8 @@ class InstanceTypes: ObservableObject{
                             print(pricingDetailsString!)
                             self.pricingDetails = try! JSONDecoder().decode(PriceDetails.self, from: pricingDetailsString!.data(using: .utf8)!)
 //                            print(self.pricingDetails!)
-                            print(self.pricingDetails?.terms.OnDemand.values.first?.priceDimensions.values.first?.pricePerUnit.USD as Any)
+//                            print(self.pricingDetails?.terms.OnDemand.values.first?.priceDimensions.values.first?.pricePerUnit.USD as Any)
+                            self.instancePrice = Double(self.pricingDetails!.terms.OnDemand.values.first?.priceDimensions.values.first?.pricePerUnit.USD ?? "-") ?? 0.0
                         } else {
                             self.pricingDetails = getNilPrice(type: type)
                         }
