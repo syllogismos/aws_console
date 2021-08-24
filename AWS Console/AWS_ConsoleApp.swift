@@ -29,21 +29,26 @@ struct AWS_ConsoleApp: App {
 struct PreferencesView: View {
     @EnvironmentObject var userPreferences: UserPreferences
     private enum Tabs: Hashable {
-        case general, advanced
+        case keys, support, changelog
     }
     var body: some View {
         TabView {
             KeysView()
                 .environmentObject(userPreferences)
                 .tabItem {
-                    Label("General", systemImage: "gear")
+                    Label("Keys", systemImage: "gear")
                 }
-                .tag(Tabs.general)
-//            AdvancedSettingsView()
-//                .tabItem {
-//                    Label("Advanced", systemImage: "star")
-//                }
-//                .tag(Tabs.advanced)
+                .tag(Tabs.keys)
+            Support()
+                .tabItem {
+                    Label("Support", systemImage: "questionmark.circle")
+                }
+                .tag(Tabs.support)
+            ChangeLog()
+                .tabItem {
+                    Label("Change Log", systemImage: "list.dash")
+                }
+                .tag(Tabs.changelog)
         }
         .padding(20)
         .frame(height: 200)

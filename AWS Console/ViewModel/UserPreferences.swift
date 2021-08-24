@@ -45,6 +45,6 @@ class UserPreferences: ObservableObject{
         self.secretKey = UserDefaults.standard.object(forKey: "secretKey") as? String ?? ""
         self.region = UserDefaults.standard.object(forKey: "region") as? String ?? "us-east-1"
         self.os = UserDefaults.standard.object(forKey: "os") as? OperatingSystem ?? LinuxOS
-        self.sidebarSelection = UserDefaults.standard.object(forKey: "sidebarSelection") as? String ?? "Instances"
+        self.sidebarSelection = UserDefaults.standard.object(forKey: "sidebarSelection") as? String ?? "Settings"
     }
 }
