@@ -242,7 +242,7 @@ class S3Buckets: ObservableObject{
         return
     }
     
-    func downloadObjectStreaming(bucketName: String, key: String){
+    func downloadObjectStreaming(bucketName: String, key: String, fileurl: URL){
         // TODO: fix filename when you get it from the key, only take the last
         // part of the key after /
         print("streaming the object \(key) in bucktet \(bucketName)")
@@ -259,12 +259,12 @@ class S3Buckets: ObservableObject{
             }
         }
         
-        guard let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last else {
-            return
-        }
-        
-        let fileurl = directory.appendingPathComponent(key)
-        print(fileurl.absoluteString)
+//        guard let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last else {
+//            return
+//        }
+//
+//        let fileurl = directory.appendingPathComponent(key)
+//        print(fileurl.absoluteString)
         
         if FileManager.default.fileExists(atPath: fileurl.path) {
             print("file already exists")

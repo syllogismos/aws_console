@@ -32,11 +32,14 @@ struct S3ObjectsView: View {
                                             })
                                             .contextMenu{
                                                 Button(action: {s3Buckets.listObjects(bucketName: bucketName, prefix: "\(folder.prefix!)")}, label: {Text("Open")})
-                                                Button(action: {s3Buckets.downloadFolder(bucketName: bucketName, key: folder.prefix!)}, label: {Text("Download")})
-//                                                Button(action: {}, label: {Text("Delete")})
-//                                                Button("Open in S3 Console") {
-//                                                    openURL(URL(string: "https://s3.console.aws.amazon.com/s3/buckets/\(bucketName)?prefix=\(folder.prefix!)")!)
-//                                                }
+                                                // Disable downloading the folder
+//                                                Button(action: {
+//                                                        downloadFolder(bucketName: bucketName, key: folder.prefix!)
+//                                                        s3Buckets.downloadFolder(bucketName: bucketName, key: folder.prefix!)}, label: {Text("Download")})
+                                                //                                                Button(action: {}, label: {Text("Delete")})
+                                                //                                                Button("Open in S3 Console") {
+                                                //                                                    openURL(URL(string: "https://s3.console.aws.amazon.com/s3/buckets/\(bucketName)?prefix=\(folder.prefix!)")!)
+                                                //                                                }
                                                 
                                             }
                                     }
@@ -47,7 +50,9 @@ struct S3ObjectsView: View {
                                     ForEach(s3Buckets.objects.contents!, id: \.key){object in
                                         S3ObjectView(object: object, name: self.removePrefix(name: object.key!))
                                             .contextMenu{
-                                                Button(action: {s3Buckets.downloadObjectStreaming(bucketName: bucketName, key: object.key!)}, label: {Text("Download")})
+                                                Button(action: {
+                                                    downloadObject(bucketName: bucketName, key: object.key!)
+                                                        }, label: {Text("Download")})
                                                 Button(action: {s3Buckets.deleteObject(bucketName: bucketName, key: object.key!)}, label: {Text("Delete")})
                                                 Button("Open in S3 Console") {
                                                     openURL(URL(string: "https://s3.console.aws.amazon.com/s3/buckets/\(bucketName)?prefix=\(object.key!)")!)
@@ -74,6 +79,32 @@ struct S3ObjectsView: View {
         return String(name.dropFirst(self.s3Buckets.prefixes.last!.count))
     }
     
+    func downloadObject(bucketName: String, key: String) {
+        let panel = NSSavePanel()
+        panel.nameFieldLabel = "Save object as:"
+        panel.nameFieldStringValue = key
+        panel.canCreateDirectories = true
+        panel.begin { response in
+            if response == NSApplication.ModalResponse.OK, let fileUrl = panel.url {
+                s3Buckets.downloadObjectStreaming(bucketName: bucketName, key: key, fileurl: fileUrl)
+                print(fileUrl)
+            }
+        }
+    }
+    
+    func downloadFolder(bucketName: String, key: String) {
+        let panel = NSSavePanel()
+        panel.nameFieldLabel = "Save object as:"
+        panel.nameFieldStringValue = key
+        panel.canCreateDirectories = true
+        panel.begin { response in
+            if response == NSApplication.ModalResponse.OK, let folderUrl = panel.url {
+//                s3Buckets.downloadFolder(bucketName: bucketName, key: key, folderurl = folderUrl)
+                print(folderUrl)
+            }
+        }
+    }
+    
 }
 
 struct S3ObjectView: View {
@@ -83,7 +114,7 @@ struct S3ObjectView: View {
         HStack{
             Text(name)
             Spacer()
-//            Text(object.size!.description).font(.caption)
+            //            Text(object.size!.description).font(.caption)
             SizeView(size: object.size!).font(.caption)
         }
     }
