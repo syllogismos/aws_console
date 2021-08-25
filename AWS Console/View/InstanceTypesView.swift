@@ -84,12 +84,12 @@ struct InstanceTypesView: View {
                 .onChange(of: userPreferences.region, perform: {_ in
                     instanceTypes.getInstanceOfferings()
                 })
-//            Image(systemName: "arrow.clockwise")
-//                .rotationEffect(Angle(degrees: isLoading ? 360 : 0))
-//                .animation(Animation.default.repeatForever(autoreverses: false))
-//                .onAppear() {
-//                    self.isLoading = false
-//                }
+            Button(action: {
+                instanceTypes.getInstanceOfferings()
+            }){
+                Image(systemName: "arrow.clockwise")
+            }
+                
             
         }
     }

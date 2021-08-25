@@ -208,8 +208,9 @@ class EC2Instances: ObservableObject {
                     print(output)
                     print("stopping instances success")
                     DispatchQueue.main.async {
-                        sendUserNotification(title: "Stopped instance \(instanceIds.first!)", subtitle: "Refresh the console to see updated status")
+                        sendUserNotification(title: "Stopped instance", subtitle: "\(instanceIds.first!) instance is stopped successfully")
                     }
+                    self.getEC2Instances()
                     shutdown()
                 }
             }
@@ -245,8 +246,9 @@ class EC2Instances: ObservableObject {
                     print(output)
                     print("terminate instances success")
                     DispatchQueue.main.async {
-                        sendUserNotification(title: "Terminated instance \(instanceIds.first!)", subtitle: "Refresh the console to see updated status")
+                        sendUserNotification(title: "Terminated instance", subtitle: "\(instanceIds.first!) instance terminated successfully")
                     }
+                    self.getEC2Instances()
                     shutdown()
                 }
             }
@@ -282,8 +284,9 @@ class EC2Instances: ObservableObject {
                     print(output)
                     print("starting instances success")
                     DispatchQueue.main.async {
-                        sendUserNotification(title: "Started instance \(instanceIds.first!)", subtitle: "Refresh the console to see updated status")
+                        sendUserNotification(title: "Starting instance", subtitle: "\(instanceIds.first!) started, wait few seconds for the instance to be up and running")
                     }
+                    self.getEC2Instances()
                     shutdown()
                 }
             }
