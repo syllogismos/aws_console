@@ -55,7 +55,7 @@ struct S3ObjectsView: View {
                                                         }, label: {Text("Download")})
                                                 Button(action: {s3Buckets.deleteObject(bucketName: bucketName, key: object.key!)}, label: {Text("Delete")})
                                                 Button("Open in S3 Console") {
-                                                    openURL(URL(string: "https://s3.console.aws.amazon.com/s3/buckets/\(bucketName)?prefix=\(object.key!)")!)
+                                                    openURL(URL(string: getEscapedURLString("https://s3.console.aws.amazon.com/s3/buckets/\(bucketName)?prefix=\(object.key!)"))!)
                                                 }
                                             }
                                     }
