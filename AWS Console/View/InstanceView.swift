@@ -205,19 +205,19 @@ struct VolumesView: View {
                 VStack(alignment: .leading){
                     Text("Type").font(.caption)
                     ForEach(ec2Instances.instanceVolumes, id: \.volumeId){volume in
-                        Text(volume.volumeType!.rawValue)
+                        Text(volume.volumeType?.rawValue ?? "nil")
                     }
                 }
                 VStack(alignment: .leading){
                     Text("Size").font(.caption)
                     ForEach(ec2Instances.instanceVolumes, id: \.volumeId){volume in
-                        Text(volume.size!.description)
-                    }
+                        Text(volume.size?.description ?? "nil")
+                     }
                 }
                 VStack(alignment: .leading){
                     Text("IOPS").font(.caption)
                     ForEach(ec2Instances.instanceVolumes, id: \.volumeId){volume in
-                        Text(volume.iops!.description)
+                        Text(volume.iops?.description ?? "nil")
                     }
                 }
                 VStack(alignment: .leading){
